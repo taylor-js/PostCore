@@ -1,0 +1,123 @@
+﻿@model PostCore.Models.CompositionCollection
+@{
+    Layout = null;
+}
+<form id="createAssetForm" asp-controller="AssetMgmt" asp-action="_AssetCreate" data-ajax="true" onsubmit="return jQueryAjaxPostCreateAsset(this);" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" asp-validation-summary="All">
+        <partial name="_ValidationScriptsPartial" />
+        <input asp-for="AM.Uniqueassetid" type="hidden" />
+
+        <!-- ROW 1 -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetid" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetid" class="form-control" placeholder="Asset ID" value="@null" />
+                    <span asp-validation-for="AM.Assetid" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assettype" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assettype" class="form-control" placeholder="Asset Type" />
+                    <span asp-validation-for="AM.Assettype" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2 -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetname" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetname" class="form-control" placeholder="Asset Name" />
+                    <span asp-validation-for="AM.Assetname" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetmanufacturer" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetmanufacturer" class="form-control" placeholder="Manufacturer" />
+                    <span asp-validation-for="AM.Assetmanufacturer" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3 -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetcategory" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetcategory" class="form-control" placeholder="Asset Category" />
+                    <span asp-validation-for="AM.Assetcategory" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetworkordernumber" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetworkordernumber" class="form-control" placeholder="Work Order" value="@null" />
+                    <span asp-validation-for="AM.Assetworkordernumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 4 -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetpurchaseordernumber" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetpurchaseordernumber" class="form-control" placeholder="Purchase Order" value="@null" />
+                    <span asp-validation-for="AM.Assetpurchaseordernumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetdate" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetdate" class="form-control datepicker" placeholder="Project Date" value="@null" />
+                    <span asp-validation-for="AM.Assetdate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 5 -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetprojectmanager" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetprojectmanager" class="form-control" placeholder="Project Manager" />
+                    <span asp-validation-for="AM.Assetprojectmanager" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label asp-for="AM.Assetequipmentamount" class="control-label font-weight-bold"></label>
+                <div>
+                    <input asp-for="AM.Assetequipmentamount" class="form-control" placeholder="Project Amount" value="@null" />
+                    <span asp-validation-for="AM.Assetequipmentamount" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 6 -->
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="AM.Assetdescription" class="control-label font-weight-bold"></label>
+                <div>
+                    <textarea asp-for="AM.Assetdescription" class="form-control" style="resize: both; overflow: auto; width: 100%; max-width: 100%" placeholder="Equipment Description"></textarea>
+                    <span asp-validation-for="AM.Assetdescription" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Create</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+﻿@model PostCore.Models.CompositionCollection
+@* //asp-items="ViewBag.UniqueAssetIdcont" (for dropdowns - goes in input) *@
+<form id="createContentForm" asp-controller="AMContent" asp-action="_ContentCreate" onsubmit="return jQueryAjaxPostCreateContent(this);" data-ajax="true" method="post">
+    <div class="form-horizontal">
+        <input type="hidden" asp-for="AM_C.Uniquecontentid" />
+        <input type="hidden" asp-for="AM_C.Uniqueassetidcont" />
+
+        <div class="form-group">
+            <label asp-for="AM_C.Assetcontentnumber" class="control-label font-weight-bold"></label>
+            <input asp-for="AM_C.Assetcontentnumber" class="form-control" placeholder="Content Number" />
+            <span asp-validation-for="AM_C.Assetcontentnumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AM_C.Assetcontentdescription" class="control-label font-weight-bold"></label>
+            <input asp-for="AM_C.Assetcontentdescription" class="form-control" placeholder="Content Description" />
+            <span asp-validation-for="AM_C.Assetcontentdescription" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="AM_C.Assetcontentversion" class="control-label font-weight-bold"></label>
+            <input asp-for="AM_C.Assetcontentversion" class="form-control" placeholder="Content Version" />
+            <span asp-validation-for="AM_C.Assetcontentversion" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AM_C.Assetcontentdateassigned" class="control-label font-weight-bold"></label>
+            <input asp-for="AM_C.Assetcontentdateassigned" class="form-control datepicker" placeholder="Content Date Assigned" />
+            <span asp-validation-for="AM_C.Assetcontentdateassigned" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+    </div>
+</form>

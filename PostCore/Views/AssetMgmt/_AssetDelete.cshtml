@@ -1,0 +1,13 @@
+﻿@model PostCore.Models.CompositionCollection
+@{
+    Layout = null;
+}
+<form id="deleteAssetForm" asp-controller="AssetMgmt" asp-action="_AssetDelete" asp-route-id="@Model.AM.Uniqueassetid" onsubmit="return jQueryAjaxPostDeleteAsset(this);" data-ajax="true" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <partial name="_ValidationScriptsPartial" />
+        <input asp-for="AM.Uniqueassetid" type="hidden" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+    </div>
+</form>

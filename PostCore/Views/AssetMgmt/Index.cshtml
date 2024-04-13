@@ -1,0 +1,81 @@
+﻿@model PostCore.Models.CompositionCollection
+@using PostCore.Models;
+@using System.Text.Encodings.Web
+@using NonFactors.Mvc.Grid;
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<h2 class="text-center">PostCore - Asset Management</h2>
+<br />
+<form>
+    <div class="input-group">
+        <input type="text" class="form-control" id="GridSearch" autofocus="autofocus" placeholder="Search for Record" aria-label="Search for Record" autocomplete="off" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="Clear" value="Reset" onclick="window.location.reload();">Reset</button>
+            <button id="createAsset" class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#createAssetModal">Create</button>
+        </div>
+    </div>
+</form>
+
+<br/>
+
+@Html.AjaxGrid(@Url.Action("IndexGrid") ?? "", new { id = "am-ajax-grid" })
+
+<br />
+
+
+<div class="modal fade" id="createAssetModal" role="dialog" data-url="@Url.Action("_AssetCreate", "AssetMgmt")">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAssetModalLabel">Create New Asset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create-asset-modal-body-content">
+                <div id="validationErrors" class="alert alert-danger" style="display:none;"></div> <!-- Validation Errors -->
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById("GridSearch").addEventListener("input", function () {
+            const grid = new MvcGrid(document.querySelector(".mvc-grid"));
+            grid.url.searchParams.set("search", this.value);
+            grid.reload();
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#createAssetModal').on('show.bs.modal', function (e) {
+                var modalBody = $(this).find('#create-asset-modal-body-content');
+
+                // Load content asynchronously
+                $.ajax({
+                    url: '@Url.Action("_AssetCreate", "AssetMgmt")',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                        // Initialize datepicker after partial view is loaded
+                        modalBody.find('.datepicker').datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true,
+                            dateFormat: "yy/mm/dd"
+                        });
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,421 @@
+﻿@model PostCore.Models.CompositionCollection;
+@using NonFactors.Mvc.Grid;
+@using Microsoft.AspNetCore.Mvc.ViewFeatures;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using System.Threading.Tasks;
+@{
+    ViewBag.Title = "Asset Details";
+}
+
+<div class="container">
+    <br />
+    <h2>Details for Asset ID @Model.AM.Assetid</h2>
+    @* ROW 1 *@
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Asset ID", "Asset ID", htmlAttributes: new { @for = "D_Assetid", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetid, new { htmlAttributes = new { @id = "D_Assetid", @class = "form-control", @placeholder = "Asset ID" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.Label("Asset Type", "Asset Type", htmlAttributes: new { @for = "D_AssetType", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assettype, new { htmlAttributes = new { @id = "D_AssetType", @class = "form-control", @placeholder = "Asset Type" } })
+                @Html.ValidationMessageFor(model => model.AM.Assettype, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @* ROW 2 *@
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Asset Name", "Asset Name", htmlAttributes: new { @for = "D_AssetName", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetname, new { htmlAttributes = new { @id = "D_AssetName", @class = "form-control", @placeholder = "Asset Name" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.Label("Manufacturer", "Manufacturer", htmlAttributes: new { @for = "D_AssetManufacturer", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetmanufacturer, new { htmlAttributes = new { @id = "D_AssetManufacturer", @class = "form-control", @placeholder = "Manufacturer" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetmanufacturer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @* ROW 3 *@
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Asset Category", "Asset Category", htmlAttributes: new { @for = "D_AssetCategory", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetcategory, new { htmlAttributes = new { @id = "D_AssetCategory", @class = "form-control", @placeholder = "Asset Category" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetcategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.Label("Work Order", "Work Order", htmlAttributes: new { @for = "D_AssetWorkOrderNumber", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetworkordernumber, new { htmlAttributes = new { @id = "D_AssetWorkOrderNumber", @class = "form-control", @placeholder = "Work Order" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetworkordernumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @* ROW 4 *@
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Purchase Order", "Purchase Order", htmlAttributes: new { @for = "D_AssetPurchaseOrderNumber", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetpurchaseordernumber, new { htmlAttributes = new { @id = "D_AssetPurchaseOrderNumber", @class = "form-control", @placeholder = "Purchase Order" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetpurchaseordernumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.Label("Project Date", "Project Date", htmlAttributes: new { @for = "D_AssetDate", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetdate, "{0:MM/dd/yyyy}", new { htmlAttributes = new { @id = "D_AssetDate", @class = "form-control", @placeholder = "Project Date" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetdate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @* ROW 5 *@
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("Project Manager", "Project Manager", htmlAttributes: new { @for = "D_AssetProjectManager", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetprojectmanager, new { htmlAttributes = new { @id = "D_AssetProjectManager", @class = "form-control", @placeholder = "Project Manager" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetprojectmanager, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            @Html.Label("Project Amount", "Project Amount", htmlAttributes: new { @for = "D_AssetEquipmentAmount", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetequipmentamount, new { htmlAttributes = new { @id = "D_AssetEquipmentAmount", @class = "form-control", @placeholder = "Project Amount" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetequipmentamount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @* ROW 6 *@
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            @Html.Label("Equipment Description", "Equipment Description", htmlAttributes: new { @for = "D_AssetDescription", @class = "control-label font-weight-bold" })
+            <div class="">
+                @Html.DisplayFor(model => model.AM.Assetdescription, new { htmlAttributes = new { @id = "D_AssetDescription", @class = "form-control", @placeholder = "Equipment Description" } })
+                @Html.ValidationMessageFor(model => model.AM.Assetdescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <a asp-controller="AssetMgmt" asp-action="_AssetUpdate" asp-route-id="@Model.AM.Uniqueassetid" data-toggle="modal" data-target="#updateAssetModal" class="center btn btn-primary" style="font-size:20px;">Update</a>
+        <a asp-controller="AssetMgmt" asp-action="_AssetDelete" asp-route-id="@Model.AM.Uniqueassetid" data-toggle="modal" data-target="#deleteAssetModal" class="center btn btn-danger" style="font-size:20px;">Delete</a>
+    </div>
+</div>
+<div class="modal fade" id="updateAssetModal" role="dialog" data-url="@Url.Action("_AssetUpdate", "AssetMgmt", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateAssetModalLabel">Update Asset Record @Model.AM.Assetid</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="update-asset-modal-body-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteAssetModal" role="dialog" data-url="@Url.Action("_AssetDelete", "AssetMgmt", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAssetModalLabel">Are you sure you want to delete asset record @Model.AM.Assetid?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="delete-asset-modal-body-content">
+                <h5>Are you sure you want to delete this?</h5>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="input-group justify-content-between">
+    <h3>Content</h3>
+    <a asp-controller="AMContent" asp-action="_ContentCreate" data-toggle="modal" data-target="#createContentModal" class="center btn btn-success" style="font-size:20px;">Create</a>
+</div>
+
+@(Html
+    .Grid(Model.IE_AM_C.Where(x => x.Uniqueassetidcont == Model.AM.Uniqueassetid))
+    .Build(columns =>
+    {
+        columns.Add(model => model.Assetcontentnumber).Titled("Number");
+        columns.Add(model => model.Assetcontentdescription).Titled("Description");
+        columns.Add(model => model.Assetcontentversion).Titled("Version");
+        columns.Add(model => model.Assetcontentdateassigned).Titled("Date").Formatted("{0:d}");
+        columns.Add(model => model).Titled("Update").Css("col-sm-1").RenderedAs(model =>
+        {
+            var Uniquecontentid = model.Uniquecontentid.ToString();
+            var modalId = "updateContentModal_" + Uniquecontentid;
+            string url = Url.Action("_ContentUpdate", "AMContent", new { id = model.Uniqueassetidcont, c_id = model.Uniquecontentid }) ?? "";
+            return @Html.Raw($"<button id='updateContentButton_{Uniquecontentid}' class='btn btn-primary update-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Update</button>");
+
+        });
+        columns.Add(model => model).Titled("Delete").Css("col-sm-1").RenderedAs(model =>
+        {
+            var Uniquecontentid = model.Uniquecontentid.ToString();
+            var modalId = "deleteContentModal_" + Uniquecontentid;
+            string url = Url.Action("_ContentDelete", "AMContent", new { id = model.Uniqueassetidcont, c_id = model.Uniquecontentid }) ?? "";
+            return @Html.Raw($"<button id='deleteContentButton_{Uniquecontentid}' class='btn btn-danger delete-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Delete</button>");
+        });
+    })
+    .Empty("No data found.")
+    .Id("content-ajax-grid")
+    .Sortable()
+)
+<div class="modal fade" id="createContentModal" role="dialog" data-url="@Url.Action("_ContentCreate", "AMContent", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createContentModalLabel">Create Asset Content Record for @Model.AM.Assetid</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create-content-modal-body-content">
+                <!-- Partial view content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+@foreach (var item in Model.IE_AM_C)
+{
+    <div class="modal fade" id="updateContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentUpdate", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="updateContentModal_@item.Uniquecontentid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateContentModalLabel">Update Asset Content Record for Content Number: @item.Assetcontentnumber</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{updateContentModalBody_@item.Uniquecontentid}">
+                    <!-- Update form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var item in Model.IE_AM_C)
+{
+    <div class="modal fade" id="deleteContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentDelete", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="deleteContentModal_@item.Uniquecontentid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteContentModalLabel">Are you sure you want to delete content record for content number: @item.Assetcontentnumber?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{deleteContentModalBody_@item.Uniquecontentid}">
+                    <!-- Delete confirmation form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+
+
+<div class="input-group justify-content-between">
+    <h3>Distribution</h3>
+    <a asp-controller="AMDistrib" asp-action="_DistribCreate" data-toggle="modal" data-target="#createDistribModal" class="center btn btn-success" style="font-size:20px;">Create</a>
+</div>
+@(Html
+    .Grid(Model.IE_AM_D.Where(x => x.Uniqueassetiddistr == Model.AM.Uniqueassetid))
+    .Build(columns =>
+    {
+        columns.Add(model => model.Assetdistributionowner).Titled("Number");
+        columns.Add(model => model.Assetdistributionlocation).Titled("Description");
+        columns.Add(model => model.Assetdistributionquantity).Titled("Version");
+        columns.Add(model => model.Assetdistributiondateassigned).Titled("Date").Formatted("{0:d}");
+        columns.Add(model => model).Titled("Update").Css("col-sm-1").RenderedAs(model =>
+        {
+            var uniqueDistribId = model.Uniquedistributionid.ToString();
+            var modalId = "updateDistribModal_" + uniqueDistribId;
+            string url = Url.Action("_DistribUpdate", "AMDistrib", new { id = model.Uniqueassetiddistr, d_id = model.Uniquedistributionid }) ?? "";
+            return @Html.Raw($"<button id='updateDistribButton_{uniqueDistribId}' class='btn btn-primary update-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Update</button>");
+        });
+        columns.Add(model => model).Titled("Delete").Css("col-sm-1").RenderedAs(model =>
+        {
+            var uniqueDistribId = model.Uniquedistributionid.ToString();
+            var modalId = "deleteDistribModal_" + uniqueDistribId;
+            string url = Url.Action("_DistribDelete", "AMDistrib", new { id = model.Uniqueassetiddistr, d_id = model.Uniquedistributionid }) ?? "";
+            return @Html.Raw($"<button id='deleteDistribButton_{uniqueDistribId}' class='btn btn-danger delete-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Delete</button>");
+        });
+    })
+    .Empty("No data found.")
+    .Id("distrib-ajax-grid")
+    .Sortable()
+)
+<div class="modal fade" id="createDistribModal" role="dialog" data-url="@Url.Action("_DistribCreate", "AMDistrib", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createDistribModalLabel">Create Asset Distribution Record for @Model.AM.Assetid</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create-distrib-modal-body-content">
+                <!-- Partial view content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+@foreach (var item in Model.IE_AM_D)
+{
+    <div class="modal fade" id="updateDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribUpdate", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="updateDistribModal_@item.Uniquedistributionid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateDistribModalLabel">Update Distribution Record for Distribution Owner: @item.Assetdistributionowner</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{updateDistribModalBody_@item.Uniquedistributionid}">
+                    <!-- Update form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var item in Model.IE_AM_D)
+{
+    <div class="modal fade" id="deleteDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribDelete", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="deleteContentModal_@item.Uniquedistributionid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteDistribModalLabel">Are you sure you want to delete record for distribution owner: @item.Assetdistributionowner?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{deleteDistribModalBody_@item.Uniquedistributionid}">
+                    <!-- Delete confirmation form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@* / *@
+
+@section scripts {
+    <!-- Asset Update and Delete JavaScript -->
+    <script>
+        $(function () {
+            $('#updateAssetModal, #deleteAssetModal').on('show.bs.modal', function (e) {
+                var url = $(this).data('url');
+                var modalBody = $(this).find('.modal-body');
+                modalBody.load(url, function () {
+                    // Initialize datepicker after partial view is loaded
+                    modalBody.find('.datepicker').datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        showButtonPanel: true,
+                        dateFormat: "yy/mm/dd"
+                    });
+                });
+            });
+        });
+    </script>
+
+    <!-- Content Create, Update, and Delete JavaScript -->
+    <script>
+        $(function () {
+            $('#createContentModal').on('show.bs.modal', function (e) {
+                var url = $(this).data('url');
+                var modalBody = $(this).find('.modal-body');
+                modalBody.load(url, function () {
+                    // Initialize datepicker after partial view is loaded
+                    modalBody.find('.datepicker').datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        showButtonPanel: true,
+                        dateFormat: "yy/mm/dd"
+                    });
+                });
+            });
+        });
+        @foreach (var item in Model.IE_AM_C)
+        {
+            <text>
+                $('#updateContentButton_@item.Uniquecontentid, #deleteContentButton_@item.Uniquecontentid')
+                    .on('click', function () {
+                        var url = $(this).data('url');
+                        var modalId = $(this).data('target');
+                        var modalBody = $(modalId).find('.modal-body');
+                        modalBody.load(url, function () {
+                            // Initialize datepicker after partial view is loaded
+                            modalBody.find('.datepicker').datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                showButtonPanel: true,
+                                dateFormat: "yy/mm/dd"
+                            });
+                        });
+                    });
+            </text>
+        }
+    </script>
+
+    <!-- Distribution Create, Update, and Delete JavaScript -->
+    <script>
+        $(function () {
+            $('#createDistribModal').on('show.bs.modal', function (e) {
+                var url = $(this).data('url');
+                var modalBody = $(this).find('.modal-body');
+                modalBody.load(url, function () {
+                    // Initialize datepicker after partial view is loaded
+                    modalBody.find('.datepicker').datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        showButtonPanel: true,
+                        dateFormat: "yy/mm/dd"
+                    });
+                });
+            });
+        });
+        @foreach (var item in Model.IE_AM_D)
+        {
+            <text>
+                $('#updateDistribButton_@item.Uniquedistributionid, #deleteDistribButton_@item.Uniquedistributionid')
+                    .on('click', function () {
+                        var url = $(this).data('url');
+                        var modalId = $(this).data('target');
+                        var modalBody = $(modalId).find('.modal-body');
+                        modalBody.load(url, function () {
+                            // Initialize datepicker after partial view is loaded
+                            modalBody.find('.datepicker').datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                showButtonPanel: true,
+                                dateFormat: "yy/mm/dd"
+                            });
+                        });
+                    });
+            </text>
+        }
+    </script>
+}

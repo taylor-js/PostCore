@@ -1,0 +1,35 @@
+﻿@model PostCore.Models.CompositionCollection
+@using NonFactors.Mvc.Grid;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2 class="text-center">InfoMorph - Content</h2>
+<br />
+@(Html
+    .Grid(Model.IE_AM_C)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Assetcontentnumber).Titled("Number").Encoded(false);
+        columns.Add(model => model.Assetcontentdescription).Titled("Description").Sortable(true);
+        columns.Add(model => model.Assetcontentversion).Titled("Version").Sortable(true);
+        columns.Add(model => model.Assetcontentdateassigned).Titled("Date").Formatted("{0:d}");
+    })
+    .Empty("No data found.")
+    .Filterable()
+    .Id("am-ajax-grid")
+    .Sortable()
+    .Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 25, "25" }, { 50, "50" }, { 75, "75" }, { 100, "100" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 10;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 25;
+    })
+)
+
+@* <a asp-action="Edit" asp-route-id="@item.UniqueContentId">Edit</a> |
+<a asp-action="Details" asp-route-id="@item.UniqueContentId">Details</a> |
+<a asp-action="Delete" asp-route-id="@item.UniqueContentId">Delete</a> *@
