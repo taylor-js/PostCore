@@ -1,13 +1,21 @@
 using PostCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages();
 
-builder.Services.AddControllersWithViews();
+var supportedCultures = new[] { "en-US" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+builder.Services.AddSingleton(Options.Create(localizationOptions));
 
 var connectionString = builder.Configuration.GetConnectionString("HerokuPostgres");
 builder.Services.AddDbContext<D2glkvqrc1vuvsContext>(options =>

@@ -55,7 +55,6 @@
         $(function () {
             $('#createAssetModal').on('show.bs.modal', function (e) {
                 var modalBody = $(this).find('#create-asset-modal-body-content');
-
                 // Load content asynchronously
                 $.ajax({
                     url: '@Url.Action("_AssetCreate", "AssetMgmt")',

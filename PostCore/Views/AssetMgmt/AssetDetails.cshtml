@@ -328,14 +328,23 @@
             $('#updateAssetModal, #deleteAssetModal').on('show.bs.modal', function (e) {
                 var url = $(this).data('url');
                 var modalBody = $(this).find('.modal-body');
-                modalBody.load(url, function () {
-                    // Initialize datepicker after partial view is loaded
-                    modalBody.find('.datepicker').datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        showButtonPanel: true,
-                        dateFormat: "yy/mm/dd"
-                    });
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                        // Initialize datepicker after partial view is loaded
+                        modalBody.find('.datepicker').datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true,
+                            dateFormat: "yy/mm/dd"
+                        });
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
                 });
             });
         });
@@ -347,26 +356,39 @@
             $('#createContentModal').on('show.bs.modal', function (e) {
                 var url = $(this).data('url');
                 var modalBody = $(this).find('.modal-body');
-                modalBody.load(url, function () {
-                    // Initialize datepicker after partial view is loaded
-                    modalBody.find('.datepicker').datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        showButtonPanel: true,
-                        dateFormat: "yy/mm/dd"
-                    });
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                        // Initialize datepicker after partial view is loaded
+                        modalBody.find('.datepicker').datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true,
+                            dateFormat: "yy/mm/dd"
+                        });
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
                 });
             });
         });
         @foreach (var item in Model.IE_AM_C)
         {
             <text>
-                $('#updateContentButton_@item.Uniquecontentid, #deleteContentButton_@item.Uniquecontentid')
-                    .on('click', function () {
-                        var url = $(this).data('url');
-                        var modalId = $(this).data('target');
-                        var modalBody = $(modalId).find('.modal-body');
-                        modalBody.load(url, function () {
+                $('#updateContentButton_@item.Uniquecontentid, #deleteContentButton_@item.Uniquecontentid').on('click', function () {
+                    var url = $(this).data('url');
+                    var modalId = $(this).data('target');
+                    var modalBody = $(modalId).find('.modal-body');
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'html',
+                        success: function (data) {
+                            modalBody.html(data);
                             // Initialize datepicker after partial view is loaded
                             modalBody.find('.datepicker').datepicker({
                                 changeMonth: true,
@@ -374,8 +396,12 @@
                                 showButtonPanel: true,
                                 dateFormat: "yy/mm/dd"
                             });
-                        });
+                        },
+                        error: function () {
+                            modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                        }
                     });
+                });
             </text>
         }
     </script>
@@ -386,26 +412,39 @@
             $('#createDistribModal').on('show.bs.modal', function (e) {
                 var url = $(this).data('url');
                 var modalBody = $(this).find('.modal-body');
-                modalBody.load(url, function () {
-                    // Initialize datepicker after partial view is loaded
-                    modalBody.find('.datepicker').datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        showButtonPanel: true,
-                        dateFormat: "yy/mm/dd"
-                    });
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                        // Initialize datepicker after partial view is loaded
+                        modalBody.find('.datepicker').datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            showButtonPanel: true,
+                            dateFormat: "yy/mm/dd",
+                        });
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
                 });
             });
         });
         @foreach (var item in Model.IE_AM_D)
         {
             <text>
-                $('#updateDistribButton_@item.Uniquedistributionid, #deleteDistribButton_@item.Uniquedistributionid')
-                    .on('click', function () {
-                        var url = $(this).data('url');
-                        var modalId = $(this).data('target');
-                        var modalBody = $(modalId).find('.modal-body');
-                        modalBody.load(url, function () {
+                $('#updateDistribButton_@item.Uniquedistributionid, #deleteDistribButton_@item.Uniquedistributionid').on('click', function () {
+                    var url = $(this).data('url');
+                    var modalId = $(this).data('target');
+                    var modalBody = $(modalId).find('.modal-body');
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'html',
+                        success: function (data) {
+                            modalBody.html(data);
                             // Initialize datepicker after partial view is loaded
                             modalBody.find('.datepicker').datepicker({
                                 changeMonth: true,
@@ -413,8 +452,12 @@
                                 showButtonPanel: true,
                                 dateFormat: "yy/mm/dd"
                             });
-                        });
+                        },
+                        error: function () {
+                            modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                        }
                     });
+                });
             </text>
         }
     </script>
