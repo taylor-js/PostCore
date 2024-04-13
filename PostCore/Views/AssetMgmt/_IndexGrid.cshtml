@@ -2,6 +2,8 @@
 @using PostCore.Models;
 @using System.Text.Encodings.Web
 @using NonFactors.Mvc.Grid;
+@using System.Globalization;
+
 
 @(Html
     .Grid(Model)
@@ -22,7 +24,7 @@
         //columns.Add(model => model.AssetPurchaseOrderNumber).Titled("PO");
         columns.Add(model => model.Assetdate).Titled("Date").Formatted("{0:d}");
         columns.Add(model => model.Assetprojectmanager).Titled("ProjectManager").Sortable(true);
-        columns.Add(model => model.Assetequipmentamount).Titled("Amount").Formatted("{0:C}").Sortable(true);
+        columns.Add(model => model.Assetequipmentamount.ToString("C", new CultureInfo("en-US"))).Titled("Amount").Sortable(true);//.Formatted("{0:C}")
     })
     .Empty("No data found.")
     .Filterable()
