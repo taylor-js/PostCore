@@ -42,55 +42,53 @@ namespace PostCore.Controllers
 
         public async Task<IEnumerable<AssetMgmt>> GetFilteredData(string search)
         {
-            // Assuming Assetid, Assetworkordernumber, Assetpurchaseordernumber are numeric and Assetdate is a DateTime
-            // Attempt to convert the search string to the appropriate types for comparison
+            string lowerCaseSearch = search.ToLower();
+
             if (int.TryParse(search, out int searchInt))
             {
-                // If the search string can be converted to an int, filter numeric fields by this value
                 return await _context.AssetMgmts
                     .Where(x =>
                         x.Assetid == searchInt ||
                         x.Assetworkordernumber == searchInt ||
                         x.Assetpurchaseordernumber == searchInt ||
-                        (x.Assettype != null && x.Assettype.Contains(search)) || // Assuming Assettype is a string
-                        (x.Assetname != null && x.Assetname.Contains(search)) ||
-                        (x.Assetmanufacturer != null && x.Assetmanufacturer.Contains(search)) ||
-                        (x.Assetcategory != null && x.Assetcategory.Equals(search)) ||
-                        (x.Assetprojectmanager != null && x.Assetprojectmanager.Contains(search)) ||
-                        (x.Assetdescription != null && x.Assetdescription.Contains(search))
+                        (x.Assettype != null && x.Assettype.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetname != null && x.Assetname.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetmanufacturer != null && x.Assetmanufacturer.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetcategory != null && x.Assetcategory.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetprojectmanager != null && x.Assetprojectmanager.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetdescription != null && x.Assetdescription.ToLower().Contains(lowerCaseSearch))
                     )
                     .ToListAsync();
             }
             else if (DateTime.TryParse(search, out DateTime searchDateTime))
             {
-                // If the search string can be converted to a DateTime, filter the Assetdate by this value
                 DateOnly searchDateOnly = DateOnly.FromDateTime(searchDateTime);
                 return await _context.AssetMgmts
                     .Where(x => x.Assetdate == searchDateOnly ||
-                        (x.Assettype != null && x.Assettype.Contains(search)) ||
-                        (x.Assetname != null && x.Assetname.Contains(search)) ||
-                        (x.Assetmanufacturer != null && x.Assetmanufacturer.Contains(search)) ||
-                        (x.Assetcategory != null && x.Assetcategory.Equals(search)) ||
-                        (x.Assetprojectmanager != null && x.Assetprojectmanager.Contains(search)) ||
-                        (x.Assetdescription != null && x.Assetdescription.Contains(search))
+                        (x.Assettype != null && x.Assettype.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetname != null && x.Assetname.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetmanufacturer != null && x.Assetmanufacturer.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetcategory != null && x.Assetcategory.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetprojectmanager != null && x.Assetprojectmanager.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetdescription != null && x.Assetdescription.ToLower().Contains(lowerCaseSearch))
                     )
                     .ToListAsync();
             }
             else
             {
-                // If the search string is not a numeric or date, search only string fields
                 return await _context.AssetMgmts
                     .Where(x =>
-                        (x.Assettype != null && x.Assettype.Contains(search)) ||
-                        (x.Assetname != null && x.Assetname.Contains(search)) ||
-                        (x.Assetmanufacturer != null && x.Assetmanufacturer.Contains(search)) ||
-                        (x.Assetcategory != null && x.Assetcategory.Equals(search)) ||
-                        (x.Assetprojectmanager != null && x.Assetprojectmanager.Contains(search)) ||
-                        (x.Assetdescription != null && x.Assetdescription.Contains(search))
+                        (x.Assettype != null && x.Assettype.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetname != null && x.Assetname.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetmanufacturer != null && x.Assetmanufacturer.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetcategory != null && x.Assetcategory.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetprojectmanager != null && x.Assetprojectmanager.ToLower().Contains(lowerCaseSearch)) ||
+                        (x.Assetdescription != null && x.Assetdescription.ToLower().Contains(lowerCaseSearch))
                     )
                     .ToListAsync();
             }
         }
+
 
 
         [HttpGet]
