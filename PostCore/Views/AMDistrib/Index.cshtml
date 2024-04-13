@@ -11,6 +11,12 @@
     .Grid(Model.IE_AM_D)
     .Build(columns =>
     {
+        columns.Add(model => model.Uniqueassetiddistr).Titled("Url").Encoded(false)
+        .RenderedAs(model =>
+        {
+            var url = Url.Action("AssetDetails", "AssetMgmt", new { id = model.Uniqueassetiddistr });
+            return Html.Raw($"<a href=\"{url}\" class=\"btn btn-info btn-sm center\" style=\"font-size:20px;\">Details</a>");
+        }).Filterable(false).Sortable(false).Css("col-sm-1");
         columns.Add(model => model.Assetdistributionowner).Titled("Owner").Encoded(false);
         columns.Add(model => model.Assetdistributionlocation).Titled("Location").Sortable(true);
         columns.Add(model => model.Assetdistributionquantity).Titled("Quantity").Sortable(true);
