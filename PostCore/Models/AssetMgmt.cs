@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PostCore.Models;
 
@@ -25,6 +26,7 @@ public partial class AssetMgmt
 
     public string? Assetprojectmanager { get; set; }
 
+    [DataType(DataType.Currency)]
     public decimal Assetequipmentamount { get; set; }
 
     public string? Assetdescription { get; set; }

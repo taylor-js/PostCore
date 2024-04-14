@@ -24,7 +24,7 @@
         //columns.Add(model => model.AssetPurchaseOrderNumber).Titled("PO");
         columns.Add(model => model.Assetdate).Titled("Date").Formatted("{0:d}");
         columns.Add(model => model.Assetprojectmanager).Titled("ProjectManager").Sortable(true);
-        columns.Add(model => model.Assetequipmentamount).Formatted("{0:C}").Titled("Amount").Sortable(true);//.Formatted("{0:C}") .ToString("C", new CultureInfo("en-US"))
+        columns.Add(model => model.Assetequipmentamount.ToString("C")).Formatted("{0:C}").Titled("Amount").Sortable(true);//.Formatted("{0:C}") .ToString("C", new CultureInfo("en-US"))
     })
     .Empty("No data found.")
     .Filterable()
