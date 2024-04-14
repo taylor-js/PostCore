@@ -16,3 +16,29 @@ html {
     position: relative;
     min-height: 100%;
 }
+
+/* Custom CSS to make the navbar toggler bars white */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.nav-item a {
+    color: white !important;
+}
+
+nav.navbar.bg-dark .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=UTF8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="white" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg>') !important;
+}
+
+@media (max-width: 767.98px) { /* Adjust for screens smaller than 768px */
+    .navbar-nav .nav-link {
+        padding-top: 1rem; /* Increase top padding */
+        padding-bottom: 1rem; /* Increase bottom padding */
+    }
+}
+
+@media (max-width: 767.98px) { /* Adjust for screens smaller than 768px */
+    .navbar-nav .nav-item:not(:last-child) {
+        border-bottom: 1px solid white; /* Adds a white line below each nav item except the last one */
+    }
+}
