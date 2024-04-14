@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label asp-for="AM_C.Assetcontentdateassigned" class="control-label font-weight-bold"></label>
-            <input type="text" asp-for="AM_C.Assetcontentdateassigned" class="form-control datepicker" placeholder="Content Date Assigned" />
+            <input type="text" asp-for="AM_C.Assetcontentdateassigned" value="@Model.AM_C.Assetcontentdateassigned.ToString("yyyy-MM-dd")" class="form-control datepicker" type="date" placeholder="Content Date Assigned" />
             <span asp-validation-for="AM_C.Assetcontentdateassigned" class="text-danger"></span>
         </div>
 

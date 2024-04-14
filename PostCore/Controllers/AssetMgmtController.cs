@@ -51,6 +51,7 @@ namespace PostCore.Controllers
                         x.Assetid == searchInt ||
                         x.Assetworkordernumber == searchInt ||
                         x.Assetpurchaseordernumber == searchInt ||
+                        x.Assetequipmentamount == searchInt ||
                         (x.Assettype != null && x.Assettype.ToLower().Contains(lowerCaseSearch)) ||
                         (x.Assetname != null && x.Assetname.ToLower().Contains(lowerCaseSearch)) ||
                         (x.Assetmanufacturer != null && x.Assetmanufacturer.ToLower().Contains(lowerCaseSearch)) ||
