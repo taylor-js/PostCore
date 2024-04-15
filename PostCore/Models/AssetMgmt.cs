@@ -26,7 +26,7 @@ public partial class AssetMgmt
 
     public string? Assetprojectmanager { get; set; }
 
-    [DataType(DataType.Currency)]
+    [DisplayFormat(DataFormatString = "{0:C}")]
     public decimal Assetequipmentamount { get; set; }
 
     public string? Assetdescription { get; set; }

@@ -2,6 +2,7 @@ using PostCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,8 @@ app.Use(async (context, next) =>
 
     await next();
 });
+CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 
 app.MapControllerRoute(
     name: "assetMgmt",
