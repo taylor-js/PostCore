@@ -9,18 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages();
 
-var supportedCultures = new[] { "en-US" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
-
-builder.Services.AddSingleton(Options.Create(localizationOptions));
-
 var connectionString = builder.Configuration.GetConnectionString("HerokuPostgres");
-builder.Services.AddDbContext<D2glkvqrc1vuvsContext>(options =>
-    options.UseNpgsql(connectionString));
-
+builder.Services.AddDbContext<D2glkvqrc1vuvsContext>(options => options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
@@ -38,6 +28,18 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    context.Response.OnStarting(state =>
+    {
+        var httpContext = (HttpContext)state;
+        httpContext.Response.Headers.Append("Content-Type", "text/html; charset=utf-8");
+        return Task.CompletedTask;
+    }, context);
+
+    await next();
+});
 
 app.MapControllerRoute(
     name: "assetMgmt",
