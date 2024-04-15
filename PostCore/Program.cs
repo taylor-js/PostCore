@@ -30,17 +30,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.Use(async (context, next) =>
-{
-    context.Response.OnStarting(state =>
-    {
-        var httpContext = (HttpContext)state;
-        httpContext.Response.Headers.Append("Content-Type", "text/html; charset=utf-8");
-        return Task.CompletedTask;
-    }, context);
-
-    await next();
-});
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 
