@@ -245,9 +245,9 @@
     .Grid(Model.IE_AM_D.Where(x => x.Uniqueassetiddistr == Model.AM.Uniqueassetid))
     .Build(columns =>
     {
-        columns.Add(model => model.Assetdistributionowner).Titled("Number");
-        columns.Add(model => model.Assetdistributionlocation).Titled("Description");
-        columns.Add(model => model.Assetdistributionquantity).Titled("Version");
+        columns.Add(model => model.Assetdistributionowner).Titled("Owner");
+        columns.Add(model => model.Assetdistributionlocation).Titled("Location");
+        columns.Add(model => model.Assetdistributionquantity).Titled("Quantity");
         columns.Add(model => model.Assetdistributiondateassigned).Titled("Date").Formatted("{0:d}");
         columns.Add(model => model).Titled("Update").Css("col-sm-1").RenderedAs(model =>
         {
