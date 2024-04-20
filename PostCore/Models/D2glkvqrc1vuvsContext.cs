@@ -151,7 +151,7 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasColumnName("assetequipmentamount");
 
             entity.Property(e => e.Assetdescription)
-                .HasMaxLength(500)
+                .HasMaxLength(600)
                 .HasColumnName("assetdescription");
         });
 
