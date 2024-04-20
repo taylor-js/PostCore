@@ -116,19 +116,19 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasColumnName("assetid");
 
             entity.Property(e => e.Assettype)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .HasColumnName("assettype");
 
             entity.Property(e => e.Assetname)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .HasColumnName("assetname");
 
             entity.Property(e => e.Assetmanufacturer)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .HasColumnName("assetmanufacturer");
 
             entity.Property(e => e.Assetcategory)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .HasColumnName("assetcategory");
 
             entity.Property(e => e.Assetworkordernumber)
@@ -143,7 +143,7 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasColumnName("assetdate");
 
             entity.Property(e => e.Assetprojectmanager)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .HasColumnName("assetprojectmanager");
 
             entity.Property(e => e.Assetequipmentamount)
@@ -151,7 +151,7 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasColumnName("assetequipmentamount");
 
             entity.Property(e => e.Assetdescription)
-                .HasMaxLength(600)
+                .HasMaxLength(500)
                 .HasColumnName("assetdescription");
         });
 
