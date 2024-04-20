@@ -1,34 +1,37 @@
-﻿@model PostCore.Models.CompositionCollection
+﻿@model PostCore.Models.Amdistrib
 
 @* //asp-items="ViewBag.UniqueAssetIdcont" (for dropdowns - goes in input) *@
-<form id="updateDistribForm" asp-controller="AmDistrib" asp-action="_DistribUpdate" asp-route-id='@Model.AM_D.Uniqueassetiddistr' asp-route-d_id='@Model.AM_D.Uniquedistributionid' onsubmit="return jQueryAjaxPostUpdateDistrib(this);" data-ajax="true" method="post">
+<form id="updateDistribForm" asp-controller="AmDistrib" asp-action="_DistribUpdate" asp-route-id='@Model.Uniqueassetiddistr' asp-route-d_id='@Model.Uniquedistributionid' onsubmit="return jQueryAjaxPostUpdateDistrib(this);" data-ajax="true" method="post">
+    @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
-        <input type="hidden" asp-for="AM_D.Uniquedistributionid" />
-        <input type="hidden" asp-for="AM_D.Uniqueassetiddistr" />
+        <partial name="_ValidationScriptsPartial" />
+        <input type="hidden" asp-for="Uniquedistributionid" />
+        <input type="hidden" asp-for="Uniqueassetiddistr" />
 
         <div class="form-group">
-            <label asp-for="AM_D.Assetdistributionowner" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_D.Assetdistributionowner" class="form-control" placeholder="Distrib Number" />
-            <span asp-validation-for="AM_D.Assetdistributionowner" class="text-danger"></span>
+            <label asp-for="Assetdistributionowner" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetdistributionowner" class="form-control" placeholder="Distrib Number" />
+            <span asp-validation-for="Assetdistributionowner" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="AM_D.Assetdistributionlocation" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_D.Assetdistributionlocation" class="form-control" placeholder="Distrib Description" />
-            <span asp-validation-for="AM_D.Assetdistributionlocation" class="text-danger"></span>
+            <label asp-for="Assetdistributionlocation" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetdistributionlocation" class="form-control" placeholder="Distrib Description" />
+            <span asp-validation-for="Assetdistributionlocation" class="text-danger"></span>
         </div>
 
 
         <div class="form-group">
-            <label asp-for="AM_D.Assetdistributionquantity" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_D.Assetdistributionquantity" class="form-control" placeholder="Distrib Version" />
-            <span asp-validation-for="AM_D.Assetdistributionquantity" class="text-danger"></span>
+            <label asp-for="Assetdistributionquantity" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetdistributionquantity" class="form-control" placeholder="Distrib Version" />
+            <span asp-validation-for="Assetdistributionquantity" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="AM_D.Assetdistributiondateassigned" class="control-label font-weight-bold"></label>
-            <input type="text" asp-for="AM_D.Assetdistributiondateassigned" value="@Model.AM_D.Assetdistributiondateassigned.ToString("yyyy-MM-dd")" class="form-control datepicker" type="date" placeholder="Distrib Date Assigned" />
-            <span asp-validation-for="AM_D.Assetdistributiondateassigned" class="text-danger"></span>
+            <label asp-for="Assetdistributiondateassigned" class="control-label font-weight-bold"></label>
+            <input type="text" asp-for="Assetdistributiondateassigned" value="@Model.Assetdistributiondateassigned.ToString("yyyy-MM-dd")" class="form-control datepicker" type="date" placeholder="Distrib Date Assigned" />
+            <span asp-validation-for="Assetdistributiondateassigned" class="text-danger"></span>
         </div>
 
         <div class="form-group">

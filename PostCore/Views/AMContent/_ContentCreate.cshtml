@@ -1,33 +1,35 @@
-﻿@model PostCore.Models.CompositionCollection
+﻿@model PostCore.Models.Amcontent
 @* //asp-items="ViewBag.UniqueAssetIdcont" (for dropdowns - goes in input) *@
 <form id="createContentForm" asp-controller="AMContent" asp-action="_ContentCreate" onsubmit="return jQueryAjaxPostCreateContent(this);" data-ajax="true" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <input type="hidden" asp-for="AM_C.Uniquecontentid" />
-        <input type="hidden" asp-for="AM_C.Uniqueassetidcont" />
+        <partial name="_ValidationScriptsPartial" />
+        <input type="hidden" asp-for="Uniquecontentid" />
+        <input type="hidden" asp-for="Uniqueassetidcont" />
 
         <div class="form-group">
-            <label asp-for="AM_C.Assetcontentnumber" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_C.Assetcontentnumber" class="form-control" placeholder="Content Number" />
-            <span asp-validation-for="AM_C.Assetcontentnumber" class="text-danger"></span>
+            <label asp-for="Assetcontentnumber" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetcontentnumber" class="form-control" placeholder="Content Number" />
+            <span asp-validation-for="Assetcontentnumber" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="AM_C.Assetcontentdescription" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_C.Assetcontentdescription" class="form-control" placeholder="Content Description" />
-            <span asp-validation-for="AM_C.Assetcontentdescription" class="text-danger"></span>
+            <label asp-for="Assetcontentdescription" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetcontentdescription" class="form-control" placeholder="Content Description" />
+            <span asp-validation-for="Assetcontentdescription" class="text-danger"></span>
         </div>
 
 
         <div class="form-group">
-            <label asp-for="AM_C.Assetcontentversion" class="control-label font-weight-bold"></label>
-            <input asp-for="AM_C.Assetcontentversion" class="form-control" placeholder="Content Version" />
-            <span asp-validation-for="AM_C.Assetcontentversion" class="text-danger"></span>
+            <label asp-for="Assetcontentversion" class="control-label font-weight-bold"></label>
+            <input asp-for="Assetcontentversion" class="form-control" placeholder="Content Version" />
+            <span asp-validation-for="Assetcontentversion" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="AM_C.Assetcontentdateassigned" class="control-label font-weight-bold"></label>
-            <input type="text" asp-for="AM_C.Assetcontentdateassigned" class="form-control datepicker" type="date" placeholder="Content Date Assigned" value="@null" />
-            <span asp-validation-for="AM_C.Assetcontentdateassigned" class="text-danger"></span>
+            <label asp-for="Assetcontentdateassigned" class="control-label font-weight-bold"></label>
+            <input type="text" asp-for="Assetcontentdateassigned" class="form-control datepicker" type="date" placeholder="Content Date Assigned" value="@null" />
+            <span asp-validation-for="Assetcontentdateassigned" class="text-danger"></span>
         </div>
 
         <div class="form-group">

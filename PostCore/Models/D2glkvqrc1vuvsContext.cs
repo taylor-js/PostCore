@@ -101,55 +101,57 @@ public partial class D2glkvqrc1vuvsContext : DbContext
 
         modelBuilder.Entity<AssetMgmt>(entity =>
         {
-            entity.HasKey(e => e.Uniqueassetid)
-                .HasName("assetmgmt_pkey");
-
             entity.ToTable("assetmgmt");
 
             entity.Property(e => e.Uniqueassetid)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("uniqueassetid");
 
-            entity.Property(e => e.Assetcategory)
-                .HasMaxLength(50)
-                .HasColumnName("assetcategory");
-
-            entity.Property(e => e.Assetdate)
-                .HasColumnName("assetdate");
-
-            entity.Property(e => e.Assetdescription)
-                .HasMaxLength(500)
-                .HasColumnName("assetdescription");
-
-            entity.Property(e => e.Assetequipmentamount)
-                .HasColumnType("money")
-                .HasColumnName("assetequipmentamount");
+            entity.HasKey(e => e.Uniqueassetid)
+                .HasName("assetmgmt_pkey");
 
             entity.Property(e => e.Assetid)
+                .HasPrecision(5) //Precision should be 5 digits
                 .HasColumnName("assetid");
-
-            entity.Property(e => e.Assetmanufacturer)
-                .HasMaxLength(50)
-                .HasColumnName("assetmanufacturer");
-
-            entity.Property(e => e.Assetname)
-                .HasMaxLength(50)
-                .HasColumnName("assetname");
-
-            entity.Property(e => e.Assetprojectmanager)
-                .HasMaxLength(50)
-                .HasColumnName("assetprojectmanager");
-
-            entity.Property(e => e.Assetpurchaseordernumber)
-                .HasColumnName("assetpurchaseordernumber");
 
             entity.Property(e => e.Assettype)
                 .HasMaxLength(50)
                 .HasColumnName("assettype");
 
+            entity.Property(e => e.Assetname)
+                .HasMaxLength(50)
+                .HasColumnName("assetname");
+
+            entity.Property(e => e.Assetmanufacturer)
+                .HasMaxLength(50)
+                .HasColumnName("assetmanufacturer");
+
+            entity.Property(e => e.Assetcategory)
+                .HasMaxLength(50)
+                .HasColumnName("assetcategory");
+
             entity.Property(e => e.Assetworkordernumber)
+                .HasPrecision(10) //Precision should be 10 digits
                 .HasColumnName("assetworkordernumber");
 
+            entity.Property(e => e.Assetpurchaseordernumber)
+                .HasPrecision(10) //Precision should be 10 digits
+                .HasColumnName("assetpurchaseordernumber");
+
+            entity.Property(e => e.Assetdate)
+                .HasColumnName("assetdate");
+
+            entity.Property(e => e.Assetprojectmanager)
+                .HasMaxLength(50)
+                .HasColumnName("assetprojectmanager");
+
+            entity.Property(e => e.Assetequipmentamount)
+                .HasColumnType("money")
+                .HasColumnName("assetequipmentamount");
+
+            entity.Property(e => e.Assetdescription)
+                .HasMaxLength(500)
+                .HasColumnName("assetdescription");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,29 +1,29 @@
-﻿@model PostCore.Models.CompositionCollection
+﻿@model PostCore.Models.AssetMgmt
 @{
     Layout = null;
 }
-<form id="updateAssetForm" asp-controller="AssetMgmt" asp-action="_AssetUpdate" asp-route-id="@Model.AM.Uniqueassetid" data-ajax="true" onsubmit="return jQueryAjaxPostUpdateAsset(this);" method="post">
+<form id="updateAssetForm" asp-controller="AssetMgmt" asp-action="_AssetUpdate" asp-route-id="@Model.Uniqueassetid" data-ajax="true" onsubmit="return jQueryAjaxPostUpdateAsset(this);" method="post">
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <partial name="_ValidationScriptsPartial" />
-        <input asp-for="AM.Uniqueassetid" type="hidden" />
+        <input asp-for="Uniqueassetid" type="hidden" />
 
         <!-- ROW 1 -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetid" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetid" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetid" class="form-control" placeholder="Asset ID" />
-                    <span asp-validation-for="AM.Assetid" class="text-danger"></span>
+                    <input asp-for="Assetid" class="form-control" placeholder="Asset ID" />
+                    <span asp-validation-for="Assetid" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assettype" class="control-label font-weight-bold"></label>
+                <label asp-for="Assettype" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assettype" class="form-control" placeholder="Asset Type" />
-                    <span asp-validation-for="AM.Assettype" class="text-danger"></span>
+                    <input asp-for="Assettype" class="form-control" placeholder="Asset Type" />
+                    <span asp-validation-for="Assettype" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -31,18 +31,18 @@
         <!-- ROW 2 -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetname" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetname" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetname" class="form-control" placeholder="Asset Name" />
-                    <span asp-validation-for="AM.Assetname" class="text-danger"></span>
+                    <input asp-for="Assetname" class="form-control" placeholder="Asset Name" />
+                    <span asp-validation-for="Assetname" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetmanufacturer" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetmanufacturer" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetmanufacturer" class="form-control" placeholder="Manufacturer" />
-                    <span asp-validation-for="AM.Assetmanufacturer" class="text-danger"></span>
+                    <input asp-for="Assetmanufacturer" class="form-control" placeholder="Manufacturer" />
+                    <span asp-validation-for="Assetmanufacturer" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -50,18 +50,18 @@
         <!-- ROW 3 -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetcategory" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetcategory" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetcategory" class="form-control" placeholder="Asset Category" />
-                    <span asp-validation-for="AM.Assetcategory" class="text-danger"></span>
+                    <input asp-for="Assetcategory" class="form-control" placeholder="Asset Category" />
+                    <span asp-validation-for="Assetcategory" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetworkordernumber" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetworkordernumber" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetworkordernumber" class="form-control" placeholder="Work Order" />
-                    <span asp-validation-for="AM.Assetworkordernumber" class="text-danger"></span>
+                    <input asp-for="Assetworkordernumber" class="form-control" placeholder="Work Order" />
+                    <span asp-validation-for="Assetworkordernumber" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -69,18 +69,18 @@
         <!-- ROW 4 -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetpurchaseordernumber" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetpurchaseordernumber" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetpurchaseordernumber" class="form-control" placeholder="Purchase Order" />
-                    <span asp-validation-for="AM.Assetpurchaseordernumber" class="text-danger"></span>
+                    <input asp-for="Assetpurchaseordernumber" class="form-control" placeholder="Purchase Order" />
+                    <span asp-validation-for="Assetpurchaseordernumber" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetdate" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetdate" class="control-label font-weight-bold"></label>
                 <div>
-                    <input type="text" asp-for="AM.Assetdate" value="@Model.AM.Assetdate.ToString("yyyy-MM-dd")" class="form-control datepicker" placeholder="Project Date" type="date" />
-                    <span asp-validation-for="AM.Assetdate" class="text-danger"></span>
+                    <input type="text" asp-for="Assetdate" value="@Model.Assetdate.ToString("yyyy-MM-dd")" class="form-control datepicker" placeholder="Project Date" type="date" />
+                    <span asp-validation-for="Assetdate" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -88,18 +88,18 @@
         <!-- ROW 5 -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetprojectmanager" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetprojectmanager" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetprojectmanager" class="form-control" placeholder="Project Manager" />
-                    <span asp-validation-for="AM.Assetprojectmanager" class="text-danger"></span>
+                    <input asp-for="Assetprojectmanager" class="form-control" placeholder="Project Manager" />
+                    <span asp-validation-for="Assetprojectmanager" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="AM.Assetequipmentamount" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetequipmentamount" class="control-label font-weight-bold"></label>
                 <div>
-                    <input asp-for="AM.Assetequipmentamount" class="form-control" placeholder="Project Amount" />
-                    <span asp-validation-for="AM.Assetequipmentamount" class="text-danger"></span>
+                    <input asp-for="Assetequipmentamount" class="form-control" placeholder="Project Amount" />
+                    <span asp-validation-for="Assetequipmentamount" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -107,10 +107,10 @@
         <!-- ROW 6 -->
         <div class="form-row">
             <div class="form-group col-md-12">
-                <label asp-for="AM.Assetdescription" class="control-label font-weight-bold"></label>
+                <label asp-for="Assetdescription" class="control-label font-weight-bold"></label>
                 <div>
-                    <textarea asp-for="AM.Assetdescription" class="form-control" placeholder="Equipment Description" style="resize: both; overflow: auto; width: 100%; max-width:100%"></textarea>
-                    <span asp-validation-for="AM.Assetdescription" class="text-danger"></span>
+                    <textarea asp-for="Assetdescription" class="form-control" placeholder="Equipment Description" style="resize: both; overflow: auto; width: 100%; max-width:100%"></textarea>
+                    <span asp-validation-for="Assetdescription" class="text-danger"></span>
                 </div>
             </div>
         </div>

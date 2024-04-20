@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PostCore.Models;
 
 public partial class Amcontent
 {
-    public Guid Uniquecontentid { get; set; }
+    [Key]
+    public Guid Uniquecontentid { get; set; } = Guid.NewGuid();
 
     public Guid Uniqueassetidcont { get; set; }
 
-    public string? Assetcontentnumber { get; set; }
+    [Required]
+    public string Assetcontentnumber { get; set; } = string.Empty;
 
-    public string? Assetcontentdescription { get; set; }
+    [Required]
+    public string Assetcontentdescription { get; set; } = string.Empty;
 
-    public string? Assetcontentversion { get; set; }
+    [Required]
+    public string Assetcontentversion { get; set; } = string.Empty;
 
+    [Required]
     public DateOnly Assetcontentdateassigned { get; set; }
 
     public virtual AssetMgmt? UniqueassetidcontNavigation { get; set; }

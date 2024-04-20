@@ -1,12 +1,12 @@
-﻿@model PostCore.Models.CompositionCollection
+﻿@model PostCore.Models.Amdistrib
 
-<form id="deleteDistribForm" asp-controller="AMDistrib" asp-action="_DistribDelete" asp-route-id="@Model.AM_D.Uniqueassetiddistr" asp-route-d_id="@Model.AM_D.Uniquedistributionid" onsubmit="return jQueryAjaxPostDeleteDistrib(this);" data-ajax="true" method="post">
+<form id="deleteDistribForm" asp-controller="AMDistrib" asp-action="_DistribDelete" asp-route-id="@Model.Uniqueassetiddistr" asp-route-d_id="@Model.Uniquedistributionid" onsubmit="return jQueryAjaxPostDeleteDistrib(this);" data-ajax="true" method="post">
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <partial name="_ValidationScriptsPartial" />
-        <input asp-for="AM_D.Uniquedistributionid" type="hidden" />
-        <input asp-for="AM_D.Uniqueassetiddistr" type="hidden" />
+        <input asp-for="Uniquedistributionid" type="hidden" />
+        <input asp-for="Uniqueassetiddistr" type="hidden" />
         <button type="submit" class="btn btn-danger">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
     </div>

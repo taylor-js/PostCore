@@ -34,19 +34,15 @@ namespace InfoMorph.Controllers
             {
                 return NotFound();
             }
-            var viewModel = new CompositionCollection
-            {
-                AM = asset,
-                AM_D = new Amdistrib(),
-            };
-            viewModel.AM_D.Uniquedistributionid = Guid.NewGuid();
-            viewModel.AM_D.Uniqueassetiddistr = id;
+            var viewModel = new Amdistrib();
+            viewModel.Uniquedistributionid = Guid.NewGuid();
+            viewModel.Uniqueassetiddistr = id;
             return PartialView("~/Views/Amdistrib/_DistribCreate.cshtml", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _DistribCreate(CompositionCollection model, Guid id)
+        public async Task<IActionResult> _DistribCreate(Amdistrib model, Guid id)
         {
             try
             {
@@ -56,14 +52,14 @@ namespace InfoMorph.Controllers
 
                     if (parentEntity != null)
                     {
-                        Amdistrib childEntity = new Amdistrib
+                        var childEntity = new Amdistrib
                         {
                             Uniquedistributionid = Guid.NewGuid(),
                             Uniqueassetiddistr = id,
-                            Assetdistributionowner = model.AM_D.Assetdistributionowner,
-                            Assetdistributionlocation = model.AM_D.Assetdistributionlocation,
-                            Assetdistributionquantity = model.AM_D.Assetdistributionquantity,
-                            Assetdistributiondateassigned = model.AM_D.Assetdistributiondateassigned
+                            Assetdistributionowner = model.Assetdistributionowner,
+                            Assetdistributionlocation = model.Assetdistributionlocation,
+                            Assetdistributionquantity = model.Assetdistributionquantity,
+                            Assetdistributiondateassigned = model.Assetdistributiondateassigned
                         };
 
                         _context.Amdistribs.Add(childEntity);
@@ -103,20 +99,15 @@ namespace InfoMorph.Controllers
             {
                 return NotFound();
             }
-            CompositionCollection viewModel = new CompositionCollection
-            {
-                AM = parentRecord,
-                AM_D = childRecord,
-            };
 
-            return PartialView("~/Views/AMDistrib/_DistribUpdate.cshtml", viewModel);
+            return PartialView("~/Views/AMDistrib/_DistribUpdate.cshtml", childRecord);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _DistribUpdate(Guid id, Guid d_id, CompositionCollection model)
+        public async Task<IActionResult> _DistribUpdate(Guid id, Guid d_id, Amdistrib model)
         {
-            if (id != model.AM_D.Uniqueassetiddistr)
+            if (id != model.Uniqueassetiddistr)
             {
                 return NotFound();
             }
@@ -133,7 +124,7 @@ namespace InfoMorph.Controllers
                         return NotFound();
                     }
 
-                    _context.Entry(childRecord).CurrentValues.SetValues(model.AM_D);
+                    _context.Entry(childRecord).CurrentValues.SetValues(model);
                     await _context.SaveChangesAsync();
 
                     //return RedirectToAction("AssetDetails", "AssetMgmt", new { id = parentRecord.Uniqueassetid });
@@ -168,12 +159,7 @@ namespace InfoMorph.Controllers
                 return NotFound();
             }
 
-            var model = new CompositionCollection
-            {
-                AM_D = childRecord
-            };
-
-            return PartialView("~/Views/AMDistrib/_DistribDelete.cshtml", model);
+            return PartialView("~/Views/AMDistrib/_DistribDelete.cshtml", childRecord);
         }
 
         [HttpPost]
@@ -193,14 +179,7 @@ namespace InfoMorph.Controllers
                 _context.Amdistribs.Remove(childRecord);
                 await _context.SaveChangesAsync();
 
-                CompositionCollection viewModel = new CompositionCollection
-                {
-                    AM = parentRecord,
-                    AM_D = childRecord,
-                };
-
-                //return RedirectToAction("AssetDetails", "AssetMgmt", new { id = id });
-                return Json(new { success = true, data = viewModel });
+                return Json(new { success = true, data = parentRecord });
             }
             catch (Exception ex)
             {

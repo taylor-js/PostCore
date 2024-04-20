@@ -8,16 +8,6 @@ namespace PostCore.Models
 {
     public class CompositionCollection
     {
-        public CompositionCollection(D2glkvqrc1vuvsContext context)
-        {
-            AM = new AssetMgmt();
-            AM_C = new Amcontent();
-            AM_D = new Amdistrib();
-            IE_AM = new List<AssetMgmt>();
-            IE_AM_C = new List<Amcontent>();
-            IE_AM_D = new List<Amdistrib>();
-        }
-
         public CompositionCollection()
         {
             AM = new AssetMgmt();

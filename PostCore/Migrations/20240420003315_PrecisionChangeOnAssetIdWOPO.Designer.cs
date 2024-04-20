@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PostCore.Models;
@@ -11,9 +12,11 @@ using PostCore.Models;
 namespace PostCore.Migrations
 {
     [DbContext(typeof(D2glkvqrc1vuvsContext))]
-    partial class D2glkvqrc1vuvsContextModelSnapshot : ModelSnapshot
+    [Migration("20240420003315_PrecisionChangeOnAssetIdWOPO")]
+    partial class PrecisionChangeOnAssetIdWOPO
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,19 +40,16 @@ namespace PostCore.Migrations
                         .HasColumnName("assetcontentdateassigned");
 
                     b.Property<string>("Assetcontentdescription")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("assetcontentdescription");
 
                     b.Property<string>("Assetcontentnumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetcontentnumber");
 
                     b.Property<string>("Assetcontentversion")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetcontentversion");
@@ -79,13 +79,11 @@ namespace PostCore.Migrations
                         .HasColumnName("assetdistributiondateassigned");
 
                     b.Property<string>("Assetdistributionlocation")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetdistributionlocation");
 
                     b.Property<string>("Assetdistributionowner")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetdistributionowner");
@@ -115,7 +113,6 @@ namespace PostCore.Migrations
                         .HasDefaultValueSql("uuid_generate_v4()");
 
                     b.Property<string>("Assetcategory")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetcategory");
@@ -125,7 +122,6 @@ namespace PostCore.Migrations
                         .HasColumnName("assetdate");
 
                     b.Property<string>("Assetdescription")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)")
                         .HasColumnName("assetdescription");
@@ -140,19 +136,16 @@ namespace PostCore.Migrations
                         .HasColumnName("assetid");
 
                     b.Property<string>("Assetmanufacturer")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetmanufacturer");
 
                     b.Property<string>("Assetname")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetname");
 
                     b.Property<string>("Assetprojectmanager")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assetprojectmanager");
@@ -163,7 +156,6 @@ namespace PostCore.Migrations
                         .HasColumnName("assetpurchaseordernumber");
 
                     b.Property<string>("Assettype")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("assettype");

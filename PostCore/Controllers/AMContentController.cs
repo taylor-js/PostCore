@@ -34,19 +34,15 @@ namespace InfoMorph.Controllers
             {
                 return NotFound();
             }
-            var viewModel = new CompositionCollection
-            {
-                AM = asset,
-                AM_C = new Amcontent(),
-            };
-            viewModel.AM_C.Uniquecontentid = Guid.NewGuid();
-            viewModel.AM_C.Uniqueassetidcont = id;
+            var viewModel = new Amcontent();
+            viewModel.Uniquecontentid = Guid.NewGuid();
+            viewModel.Uniqueassetidcont = id;
             return PartialView("~/Views/AMContent/_ContentCreate.cshtml", viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _ContentCreate(CompositionCollection model, Guid id)
+        public async Task<IActionResult> _ContentCreate(Amcontent model, Guid id)
         {
             try
             {
@@ -56,14 +52,14 @@ namespace InfoMorph.Controllers
 
                     if (parentEntity != null)
                     {
-                        Amcontent childEntity = new Amcontent
+                        var childEntity = new Amcontent
                         {
                             Uniquecontentid = Guid.NewGuid(),
                             Uniqueassetidcont = id,
-                            Assetcontentnumber = model.AM_C.Assetcontentnumber,
-                            Assetcontentdescription = model.AM_C.Assetcontentdescription,
-                            Assetcontentversion = model.AM_C.Assetcontentversion,
-                            Assetcontentdateassigned = model.AM_C.Assetcontentdateassigned
+                            Assetcontentnumber = model.Assetcontentnumber,
+                            Assetcontentdescription = model.Assetcontentdescription,
+                            Assetcontentversion = model.Assetcontentversion,
+                            Assetcontentdateassigned = model.Assetcontentdateassigned
                         };
 
                         _context.Amcontents.Add(childEntity);
@@ -103,20 +99,15 @@ namespace InfoMorph.Controllers
             {
                 return NotFound();
             }
-            CompositionCollection viewModel = new CompositionCollection
-            {
-                AM = parentRecord,
-                AM_C = childRecord,
-            };
 
-            return PartialView("~/Views/AMContent/_ContentUpdate.cshtml", viewModel);
+            return PartialView("~/Views/AMContent/_ContentUpdate.cshtml", childRecord);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _ContentUpdate(Guid id, Guid c_id, CompositionCollection model)
+        public async Task<IActionResult> _ContentUpdate(Guid id, Guid c_id, Amcontent model)
         {
-            if (id != model.AM_C.Uniqueassetidcont)
+            if (id != model.Uniqueassetidcont)
             {
                 return NotFound();
             }
@@ -133,7 +124,7 @@ namespace InfoMorph.Controllers
                         return NotFound();
                     }
 
-                    _context.Entry(childRecord).CurrentValues.SetValues(model.AM_C);
+                    _context.Entry(childRecord).CurrentValues.SetValues(model);
                     await _context.SaveChangesAsync();
 
                     return Json(new { success = true, data = model });// Update Content Post
@@ -167,12 +158,7 @@ namespace InfoMorph.Controllers
             {
                 return NotFound();
             }
-
-            var model = new CompositionCollection
-            {
-                AM_C = childRecord
-            };
-            return PartialView("~/Views/AMContent/_ContentDelete.cshtml", model);
+            return PartialView("~/Views/AMContent/_ContentDelete.cshtml", childRecord);
         }
 
         [HttpPost]
@@ -192,14 +178,7 @@ namespace InfoMorph.Controllers
                 _context.Amcontents.Remove(childRecord);
                 await _context.SaveChangesAsync();
 
-                CompositionCollection viewModel = new CompositionCollection
-                {
-                    AM = parentRecord,
-                    AM_C = childRecord,
-                };
-
-                //return RedirectToAction("AssetDetails", "AssetMgmt", new { id = id });
-                return Json(new { success = true, data = viewModel });
+                return Json(new { success = true, data = parentRecord });
             }
             catch (Exception ex)
             {

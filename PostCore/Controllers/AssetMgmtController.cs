@@ -96,43 +96,39 @@ namespace PostCore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> _AssetCreate()
+        public IActionResult _AssetCreate()
         {
-            var viewModel = new CompositionCollection
-            {
-                AM = new AssetMgmt(),
-                IE_AM = await _context.AssetMgmts.ToListAsync()
-            };
+            var viewModel = new AssetMgmt();
 
             return PartialView(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _AssetCreate(CompositionCollection model)
+        public async Task<IActionResult> _AssetCreate(AssetMgmt model)
         {
             if (ModelState.IsValid)
             {
-                AssetMgmt newAsset = new AssetMgmt
+                model = new AssetMgmt
                 {
                     Uniqueassetid = Guid.NewGuid(),
-                    Assetid = model.AM.Assetid,
-                    Assettype = model.AM.Assettype,
-                    Assetname = model.AM.Assetname,
-                    Assetmanufacturer = model.AM.Assetmanufacturer,
-                    Assetcategory = model.AM.Assetcategory,
-                    Assetworkordernumber = model.AM.Assetworkordernumber,
-                    Assetpurchaseordernumber = model.AM.Assetpurchaseordernumber,
-                    Assetdate = model.AM.Assetdate,
-                    Assetprojectmanager = model.AM.Assetprojectmanager,
-                    Assetequipmentamount = model.AM.Assetequipmentamount,
-                    Assetdescription = model.AM.Assetdescription
+                    Assetid = model.Assetid,
+                    Assettype = model.Assettype,
+                    Assetname = model.Assetname,
+                    Assetmanufacturer = model.Assetmanufacturer,
+                    Assetcategory = model.Assetcategory,
+                    Assetworkordernumber = model.Assetworkordernumber,
+                    Assetpurchaseordernumber = model.Assetpurchaseordernumber,
+                    Assetdate = model.Assetdate,
+                    Assetprojectmanager = model.Assetprojectmanager,
+                    Assetequipmentamount = model.Assetequipmentamount,
+                    Assetdescription = model.Assetdescription
                 };
 
-                _context.AssetMgmts.Add(newAsset);
+                _context.AssetMgmts.Add(model);
                 await _context.SaveChangesAsync();
 
-                return Json(new { success = true, data = newAsset });
+                return Json(new { success = true, data = model });
             }
 
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
@@ -149,19 +145,14 @@ namespace PostCore.Controllers
             if (assetMgmt == null)
                 return NotFound();
 
-            var viewModel = new CompositionCollection
-            {
-                AM = assetMgmt
-            };
-
-            return PartialView("_AssetUpdate", viewModel);
+            return PartialView("_AssetUpdate", assetMgmt);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _AssetUpdate(Guid id, CompositionCollection viewModel)
+        public async Task<IActionResult> _AssetUpdate(Guid id, AssetMgmt viewModel)
         {
-            if (id != viewModel.AM.Uniqueassetid)
+            if (id != viewModel.Uniqueassetid)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -172,7 +163,7 @@ namespace PostCore.Controllers
                     if (existingAsset == null)
                         return NotFound();
 
-                    _context.Entry(existingAsset).CurrentValues.SetValues(viewModel.AM);
+                    _context.Entry(existingAsset).CurrentValues.SetValues(viewModel);
                     await _context.SaveChangesAsync();
 
                     //return RedirectToAction("AssetDetails", "AssetMgmt", new { id = existingAsset.UniqueAssetId });
@@ -208,14 +199,8 @@ namespace PostCore.Controllers
 
             var contents = model.Amcontents.Where(c => c.Uniqueassetidcont == model.Uniqueassetid).ToList();
             var distributions = model.Amdistribs.Where(d => d.Uniqueassetiddistr == model.Uniqueassetid).ToList();
-            CompositionCollection compositionCollection = new CompositionCollection
-            {
-                AM = model,
-                IE_AM_C = contents,
-                IE_AM_D = distributions,
-            };
 
-            return PartialView("_AssetDelete", compositionCollection);
+            return PartialView("_AssetDelete", model);
         }
 
         [HttpPost]
@@ -237,7 +222,6 @@ namespace PostCore.Controllers
                 _context.AssetMgmts.Remove(assetMgmtRelationship);
                 await _context.SaveChangesAsync();
 
-                //return RedirectToAction("Index", "AssetMgmt");
                 return Json(new { success = true, assetId = id, url = Url.Action("Index", "AssetMgmt") });
             }
             catch (Exception)
