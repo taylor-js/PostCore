@@ -52,38 +52,3 @@
     </tfoot>
 </table>
 
-
-@* @(Html
-    .Grid(Model)
-    .Build(columns =>
-    {
-        columns.Add(model => model.Uniqueassetid).Titled("Url").Encoded(false)
-        .RenderedAs(model =>
-        {
-            var url = Url.Action("AssetDetails", "AssetMgmt", new { id = model.Uniqueassetid });
-            return Html.Raw($"<a href=\"{url}\" class=\"btn btn-info btn-sm center\" style=\"font-size:20px;\">Details</a>");
-        }).Filterable(false).Sortable(false).Css("col-sm-1");
-        columns.Add(model => model.Assetid).Titled("AssetID").Sortable(true);
-        columns.Add(model => model.Assettype).Titled("AssetType");
-        columns.Add(model => model.Assetname).Titled("AssetName").Sortable(true);
-        columns.Add(model => model.Assetmanufacturer).Titled("AssetManufacturer");
-        columns.Add(model => model.Assetcategory).Titled("AssetCategory");
-        columns.Add(model => model.Assetworkordernumber).Titled("WO");
-        columns.Add(model => model.Assetpurchaseordernumber).Titled("PO");
-        columns.Add(model => model.Assetdate).Titled("Date").Formatted("{0:d}");
-        columns.Add(model => model.Assetprojectmanager).Titled("ProjectManager").Sortable(true);
-        columns.Add(model => model.Assetequipmentamount).Titled("Amount").Formatted("{0:C}").Sortable(true);
-    })
-    .Empty("No data found.")
-    .Filterable()
-    .Id("am-ajax-grid")
-    .Sortable()
-    .Pageable(pager =>
-    {
-        pager.PageSizes = new Dictionary<Int32, String> { { 25, "25" }, { 50, "50" }, { 75, "75" }, { 100, "100" } };
-        pager.ShowPageSizes = true;
-        pager.PagesToDisplay = 10;
-        pager.CurrentPage = 1;
-        pager.RowsPerPage = 25;
-    })
-) *@

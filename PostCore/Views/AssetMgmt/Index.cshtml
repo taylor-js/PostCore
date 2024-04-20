@@ -8,20 +8,7 @@
 <br />
 <h2 class="text-center">PostCore - Asset Management</h2>
 <br />
-@* <form>
-    <div class="input-group">
-        <input type="text" class="form-control" id="GridSearch" autofocus="autofocus" placeholder="Search for Record" aria-label="Search for Record" autocomplete="off" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="Clear" value="Reset" onclick="window.location.reload();">Reset</button>
-            <button id="createAsset" class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#createAssetModal">Create</button>
-        </div>
-    </div>
-</form> *@
-@* <button id="createAsset" class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#createAssetModal">Create</button> *@
 
-<br/>
-
-@* @Html.AjaxGrid(@Url.Action("IndexGrid") ?? "", new { id = "am-ajax-grid" }) *@
 @{
     await Html.RenderPartialAsync("_IndexGrid", Model.IE_AM);
 }
@@ -61,25 +48,15 @@
                             }
                             // You can add more buttons here
                         ]
-                    }
+                    },
+                    top2Start: 'pageLength',
                 },
                 scrollY: '500px',
                 scrollCollapse: true,
                 paging: true
             });
         });
-
     </script>
-    @* @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    } *@
-    @* <script>
-        document.getElementById("GridSearch").addEventListener("input", function () {
-            const grid = new MvcGrid(document.querySelector(".mvc-grid"));
-            grid.url.searchParams.set("search", this.value);
-            grid.reload();
-        });
-    </script> *@
     <script>
         $(function () {
             $('#createAssetModal').on('show.bs.modal', function (e) {

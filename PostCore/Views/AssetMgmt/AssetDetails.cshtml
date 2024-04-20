@@ -149,39 +149,6 @@
 </div>
 <br />
 
-<div class="justify-content-between">
-    <h3>Content</h3>
-    <a asp-controller="AMContent" asp-action="_ContentCreate" data-toggle="modal" data-target="#createContentModal" class="center btn btn-success float-right btn-md" style="font-size:20px;">Create</a>
-</div>
-
-@* @(Html
-    .Grid(Model.IE_AM_C.Where(x => x.Uniqueassetidcont == Model.AM.Uniqueassetid))
-    .Build(columns =>
-    {
-        columns.Add(model => model.Assetcontentnumber).Titled("Number");
-        columns.Add(model => model.Assetcontentdescription).Titled("Description");
-        columns.Add(model => model.Assetcontentversion).Titled("Version");
-        columns.Add(model => model.Assetcontentdateassigned).Titled("Date").Formatted("{0:d}");
-        columns.Add(model => model).Titled("Update").Css("col-sm-1").RenderedAs(model =>
-        {
-            var Uniquecontentid = model.Uniquecontentid.ToString();
-            var modalId = "updateContentModal_" + Uniquecontentid;
-            string url = Url.Action("_ContentUpdate", "AMContent", new { id = model.Uniqueassetidcont, c_id = model.Uniquecontentid }) ?? "";
-            return @Html.Raw($"<button id='updateContentButton_{Uniquecontentid}' class='btn btn-primary update-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Update</button>");
-
-        });
-        columns.Add(model => model).Titled("Delete").Css("col-sm-1").RenderedAs(model =>
-        {
-            var Uniquecontentid = model.Uniquecontentid.ToString();
-            var modalId = "deleteContentModal_" + Uniquecontentid;
-            string url = Url.Action("_ContentDelete", "AMContent", new { id = model.Uniqueassetidcont, c_id = model.Uniquecontentid }) ?? "";
-            return @Html.Raw($"<button id='deleteContentButton_{Uniquecontentid}' class='btn btn-danger delete-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Delete</button>");
-        });
-    })
-    .Empty("No data found.")
-    .Id("content-ajax-grid")
-    .Sortable()
-) *@
 <table id="amcontents-table" class="display table" style="width:100%">
     <thead>
         <tr>
@@ -277,38 +244,6 @@
 
 <br />
 
-
-<div class="justify-content-between">
-    <h3>Distribution</h3>
-    <a asp-controller="AMDistrib" asp-action="_DistribCreate" data-toggle="modal" data-target="#createDistribModal" class="center btn btn-success float-right btn-md" style="font-size:20px;">Create</a>
-</div>
-@* @(Html
-    .Grid(Model.IE_AM_D.Where(x => x.Uniqueassetiddistr == Model.AM.Uniqueassetid))
-    .Build(columns =>
-    {
-        columns.Add(model => model.Assetdistributionowner).Titled("Owner");
-        columns.Add(model => model.Assetdistributionlocation).Titled("Location");
-        columns.Add(model => model.Assetdistributionquantity).Titled("Quantity");
-        columns.Add(model => model.Assetdistributiondateassigned).Titled("Date").Formatted("{0:d}");
-        columns.Add(model => model).Titled("Update").Css("col-sm-1").RenderedAs(model =>
-        {
-            var uniqueDistribId = model.Uniquedistributionid.ToString();
-            var modalId = "updateDistribModal_" + uniqueDistribId;
-            string url = Url.Action("_DistribUpdate", "AMDistrib", new { id = model.Uniqueassetiddistr, d_id = model.Uniquedistributionid }) ?? "";
-            return @Html.Raw($"<button id='updateDistribButton_{uniqueDistribId}' class='btn btn-primary update-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Update</button>");
-        });
-        columns.Add(model => model).Titled("Delete").Css("col-sm-1").RenderedAs(model =>
-        {
-            var uniqueDistribId = model.Uniquedistributionid.ToString();
-            var modalId = "deleteDistribModal_" + uniqueDistribId;
-            string url = Url.Action("_DistribDelete", "AMDistrib", new { id = model.Uniqueassetiddistr, d_id = model.Uniquedistributionid }) ?? "";
-            return @Html.Raw($"<button id='deleteDistribButton_{uniqueDistribId}' class='btn btn-danger delete-button' data-toggle='modal' data-target='#{modalId}' data-url='{url}'>Delete</button>");
-        });
-    })
-    .Empty("No data found.")
-    .Id("distrib-ajax-grid")
-    .Sortable()
-) *@
 <table id="amdistrib-table" class="display table" style="width:100%">
     <thead>
         <tr>
@@ -400,9 +335,29 @@
 @* / *@
 
 @section scripts {
-    @* <script>
+    <script>
         $(document).ready(function () {
             $('#amcontents-table').DataTable({
+                layout: {
+                    topStart: function () {
+                        let banner = document.createElement('div');
+                        banner.innerHTML = '<h3>Content</h3>';
+
+                        return banner;
+                    },
+                    topEnd: {
+                        buttons: [
+                            {
+                                text: 'Create',
+                                className: 'btn btn-success',
+                                action: function (e, dt, node, config) {
+                                    $('#createContentModal').modal('show'); // Use jQuery to show your modal
+                                }
+                            }
+                            // You can add more buttons here
+                        ]
+                    }
+                },
                 "searching": false,
                 "bPaginate": false,
                 "aoColumnDefs": [
@@ -411,6 +366,26 @@
                 ]
             });
             $('#amdistrib-table').DataTable({
+                layout: {
+                    topStart: function () {
+                        let banner = document.createElement('div');
+                        banner.innerHTML = '<h3>Distribution</h3>';
+
+                        return banner;
+                    },
+                    topEnd: {
+                        buttons: [
+                            {
+                                text: 'Create',
+                                className: 'btn btn-success',
+                                action: function (e, dt, node, config) {
+                                    $('#createDistribModal').modal('show'); // Use jQuery to show your modal
+                                }
+                            }
+                            // You can add more buttons here
+                        ]
+                    }
+                },
                 "searching": false,
                 "bPaginate": false,
                 "aoColumnDefs": [
@@ -419,7 +394,8 @@
                 ]
             });
         });
-    </script> *@
+    </script>
+
     <!-- Asset Update and Delete JavaScript -->
     <script>
         $(function () {

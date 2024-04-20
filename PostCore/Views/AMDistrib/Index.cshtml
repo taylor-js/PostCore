@@ -7,31 +7,40 @@
 <br />
 <h2 class="text-center">PostCore - Distribution</h2>
 <br />
-@(Html
-    .Grid(Model.IE_AM_D)
-    .Build(columns =>
-    {
-        columns.Add(model => model.Uniqueassetiddistr).Titled("Url").Encoded(false)
-        .RenderedAs(model =>
+<table id="amdistrib-index-table" class="display table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Url</th>
+            <th>@Html.DisplayName("Owner")</th>
+            <th>@Html.DisplayName("Location")</th>
+            <th>@Html.DisplayName("Quantity")</th>
+            <th>@Html.DisplayName("Date")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.IE_AM_D)
         {
-            var url = Url.Action("AssetDetails", "AssetMgmt", new { id = model.Uniqueassetiddistr });
-            return Html.Raw($"<a href=\"{url}\" class=\"btn btn-info btn-sm center\" style=\"font-size:20px;\">Details</a>");
-        }).Filterable(false).Sortable(false).Css("col-sm-1");
-        columns.Add(model => model.Assetdistributionowner).Titled("Owner").Encoded(false);
-        columns.Add(model => model.Assetdistributionlocation).Titled("Location").Sortable(true);
-        columns.Add(model => model.Assetdistributionquantity).Titled("Quantity").Sortable(true);
-        columns.Add(model => model.Assetdistributiondateassigned).Titled("Date").Formatted("{0:d}");
-    })
-    .Empty("No data found.")
-    .Filterable()
-    .Id("am-ajax-grid")
-    .Sortable()
-    .Pageable(pager =>
-    {
-        pager.PageSizes = new Dictionary<Int32, String> { { 25, "25" }, { 50, "50" }, { 75, "75" }, { 100, "100" } };
-        pager.ShowPageSizes = true;
-        pager.PagesToDisplay = 10;
-        pager.CurrentPage = 1;
-        pager.RowsPerPage = 25;
-    })
-)
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Uniqueassetiddistr" class="btn btn-outline-secondary">Details</a>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Assetdistributionowner)</td>
+                <td>@Html.DisplayFor(modelItem => item.Assetdistributionlocation)</td>
+                <td>@Html.DisplayFor(modelItem => item.Assetdistributionquantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.Assetdistributiondateassigned)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#amdistrib-index-table').DataTable({
+                scrollY: '500px',
+                scrollCollapse: true,
+                paging: true
+            });
+        });
+    </script>
+}
