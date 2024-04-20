@@ -34,31 +34,31 @@ public partial class D2glkvqrc1vuvsContext : DbContext
 
         modelBuilder.Entity<Amcontent>(entity =>
         {
-            entity.HasKey(e => e.Uniquecontentid).HasName("amcontent_pkey");
-
             entity.ToTable("amcontent");
 
             entity.Property(e => e.Uniquecontentid)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("uniquecontentid");
 
-            entity.Property(e => e.Assetcontentdateassigned)
-                .HasColumnName("assetcontentdateassigned");
+            entity.HasKey(e => e.Uniquecontentid).HasName("amcontent_pkey");
 
-            entity.Property(e => e.Assetcontentdescription)
-                .HasMaxLength(100)
-                .HasColumnName("assetcontentdescription");
+            entity.Property(e => e.Uniqueassetidcont)
+                .HasColumnName("uniqueassetidcont");
 
             entity.Property(e => e.Assetcontentnumber)
                 .HasMaxLength(50)
                 .HasColumnName("assetcontentnumber");
 
+            entity.Property(e => e.Assetcontentdescription)
+                .HasMaxLength(100)
+                .HasColumnName("assetcontentdescription");
+
             entity.Property(e => e.Assetcontentversion)
                 .HasMaxLength(50)
                 .HasColumnName("assetcontentversion");
 
-            entity.Property(e => e.Uniqueassetidcont)
-                .HasColumnName("uniqueassetidcont");
+            entity.Property(e => e.Assetcontentdateassigned)
+                .HasColumnName("assetcontentdateassigned");
 
             entity.HasOne(d => d.UniqueassetidcontNavigation)
                 .WithMany(p => p.Amcontents)
@@ -68,30 +68,31 @@ public partial class D2glkvqrc1vuvsContext : DbContext
 
         modelBuilder.Entity<Amdistrib>(entity =>
         {
-            entity.HasKey(e => e.Uniquedistributionid).HasName("amdistrib_pkey");
-
             entity.ToTable("amdistrib");
 
             entity.Property(e => e.Uniquedistributionid)
                 .HasDefaultValueSql("uuid_generate_v4()")
                 .HasColumnName("uniquedistributionid");
 
-            entity.Property(e => e.Assetdistributiondateassigned)
-                .HasColumnName("assetdistributiondateassigned");
+            entity.HasKey(e => e.Uniquedistributionid).HasName("amdistrib_pkey");
 
-            entity.Property(e => e.Assetdistributionlocation)
-                .HasMaxLength(50)
-                .HasColumnName("assetdistributionlocation");
+            entity.Property(e => e.Uniqueassetiddistr)
+                .HasColumnName("uniqueassetiddistr");
 
             entity.Property(e => e.Assetdistributionowner)
                 .HasMaxLength(50)
                 .HasColumnName("assetdistributionowner");
 
+            entity.Property(e => e.Assetdistributionlocation)
+                .HasMaxLength(50)
+                .HasColumnName("assetdistributionlocation");
+
             entity.Property(e => e.Assetdistributionquantity)
+                .HasPrecision(10)
                 .HasColumnName("assetdistributionquantity");
 
-            entity.Property(e => e.Uniqueassetiddistr)
-                .HasColumnName("uniqueassetiddistr");
+            entity.Property(e => e.Assetdistributiondateassigned)
+                .HasColumnName("assetdistributiondateassigned");
 
             entity.HasOne(d => d.UniqueassetiddistrNavigation)
                 .WithMany(p => p.Amdistribs)
@@ -111,7 +112,7 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasName("assetmgmt_pkey");
 
             entity.Property(e => e.Assetid)
-                .HasPrecision(5) //Precision should be 5 digits
+                .HasPrecision(5)
                 .HasColumnName("assetid");
 
             entity.Property(e => e.Assettype)
@@ -131,11 +132,11 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasColumnName("assetcategory");
 
             entity.Property(e => e.Assetworkordernumber)
-                .HasPrecision(10) //Precision should be 10 digits
+                .HasPrecision(10)
                 .HasColumnName("assetworkordernumber");
 
             entity.Property(e => e.Assetpurchaseordernumber)
-                .HasPrecision(10) //Precision should be 10 digits
+                .HasPrecision(10)
                 .HasColumnName("assetpurchaseordernumber");
 
             entity.Property(e => e.Assetdate)
