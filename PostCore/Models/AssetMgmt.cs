@@ -10,6 +10,7 @@ public partial class AssetMgmt
     public Guid Uniqueassetid { get; set; } = Guid.NewGuid(); // Initialized with a new GUID
 
     [Required]
+    [Range(10000, 99999)]
     public long Assetid { get; set; }
 
     [Required]
@@ -25,9 +26,11 @@ public partial class AssetMgmt
     public string Assetcategory { get; set; } = string.Empty; // Initialized
 
     [Required]
+    [Range(1000000000, 9999999999)]
     public long Assetworkordernumber { get; set; }
 
     [Required]
+    [Range(1000000000, 9999999999)]
     public long Assetpurchaseordernumber { get; set; }
 
     [Required]

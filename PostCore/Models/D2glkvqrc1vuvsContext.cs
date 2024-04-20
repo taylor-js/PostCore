@@ -112,38 +112,35 @@ public partial class D2glkvqrc1vuvsContext : DbContext
                 .HasName("assetmgmt_pkey");
 
             entity.Property(e => e.Assetid)
-                .HasPrecision(5)
                 .HasColumnName("assetid");
 
             entity.Property(e => e.Assettype)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .HasColumnName("assettype");
 
             entity.Property(e => e.Assetname)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .HasColumnName("assetname");
 
             entity.Property(e => e.Assetmanufacturer)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .HasColumnName("assetmanufacturer");
 
             entity.Property(e => e.Assetcategory)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .HasColumnName("assetcategory");
 
             entity.Property(e => e.Assetworkordernumber)
-                .HasPrecision(10)
                 .HasColumnName("assetworkordernumber");
 
             entity.Property(e => e.Assetpurchaseordernumber)
-                .HasPrecision(10)
                 .HasColumnName("assetpurchaseordernumber");
 
             entity.Property(e => e.Assetdate)
                 .HasColumnName("assetdate");
 
             entity.Property(e => e.Assetprojectmanager)
-                .HasMaxLength(60)
+                .HasMaxLength(255)
                 .HasColumnName("assetprojectmanager");
 
             entity.Property(e => e.Assetequipmentamount)

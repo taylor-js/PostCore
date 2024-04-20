@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PostCore.Models;
@@ -11,9 +12,11 @@ using PostCore.Models;
 namespace PostCore.Migrations
 {
     [DbContext(typeof(D2glkvqrc1vuvsContext))]
-    partial class D2glkvqrc1vuvsContextModelSnapshot : ModelSnapshot
+    [Migration("20240420114715_UpdatedDatabaseTableFieldLengths")]
+    partial class UpdatedDatabaseTableFieldLengths
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
