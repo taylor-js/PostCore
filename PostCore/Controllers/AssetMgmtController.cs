@@ -36,7 +36,8 @@ namespace PostCore.Controllers
         [HttpGet]
         public async Task<PartialViewResult> IndexGrid(string search)
         {
-            var dataCollection = string.IsNullOrEmpty(search) ? await _context.AssetMgmts.ToListAsync() : await GetFilteredData(search);
+            //var dataCollection = string.IsNullOrEmpty(search) ? await _context.AssetMgmts.ToListAsync() : await GetFilteredData(search);
+            var dataCollection = await _context.AssetMgmts.ToListAsync();
             return PartialView("_IndexGrid", dataCollection);
         }
 

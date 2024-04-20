@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Shared\MvcGrid\**" />
+    <Compile Remove="wwwroot\css\mvc-grid\**" />
+    <Compile Remove="wwwroot\js\mvc-grid\**" />
+    <Content Remove="Views\Shared\MvcGrid\**" />
+    <Content Remove="wwwroot\css\mvc-grid\**" />
+    <Content Remove="wwwroot\js\mvc-grid\**" />
+    <EmbeddedResource Remove="Views\Shared\MvcGrid\**" />
+    <EmbeddedResource Remove="wwwroot\css\mvc-grid\**" />
+    <EmbeddedResource Remove="wwwroot\js\mvc-grid\**" />
+    <None Remove="Views\Shared\MvcGrid\**" />
+    <None Remove="wwwroot\css\mvc-grid\**" />
+    <None Remove="wwwroot\js\mvc-grid\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\AssetMgmt\Create.cshtml" />
     <Content Remove="Views\AssetMgmt\Delete.cshtml" />
     <Content Remove="Views\AssetMgmt\Details.cshtml" />

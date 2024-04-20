@@ -8,7 +8,7 @@
 <br />
 <h2 class="text-center">PostCore - Asset Management</h2>
 <br />
-<form>
+@* <form>
     <div class="input-group">
         <input type="text" class="form-control" id="GridSearch" autofocus="autofocus" placeholder="Search for Record" aria-label="Search for Record" autocomplete="off" aria-describedby="basic-addon2">
         <div class="input-group-append">
@@ -16,12 +16,15 @@
             <button id="createAsset" class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#createAssetModal">Create</button>
         </div>
     </div>
-</form>
+</form> *@
+@* <button id="createAsset" class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#createAssetModal">Create</button> *@
 
 <br/>
 
-@Html.AjaxGrid(@Url.Action("IndexGrid") ?? "", new { id = "am-ajax-grid" })
-
+@* @Html.AjaxGrid(@Url.Action("IndexGrid") ?? "", new { id = "am-ajax-grid" }) *@
+@{
+    await Html.RenderPartialAsync("_IndexGrid", Model.IE_AM);
+}
 <br />
 
 
@@ -40,17 +43,43 @@
         </div>
     </div>
 </div>
+
+
 @section scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
     <script>
+        $(document).ready(function () {
+            $('#assets-table').DataTable({
+                layout: {
+                    topStart: {
+                        buttons: [
+                            {
+                                text: 'Create',
+                                className: 'btn btn-outline-secondary input-group-append',
+                                action: function (e, dt, node, config) {
+                                    $('#createAssetModal').modal('show'); // Use jQuery to show your modal
+                                }
+                            }
+                            // You can add more buttons here
+                        ]
+                    }
+                },
+                scrollY: '500px',
+                scrollCollapse: true,
+                paging: true
+            });
+        });
+
+    </script>
+    @* @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    } *@
+    @* <script>
         document.getElementById("GridSearch").addEventListener("input", function () {
             const grid = new MvcGrid(document.querySelector(".mvc-grid"));
             grid.url.searchParams.set("search", this.value);
             grid.reload();
         });
-    </script>
+    </script> *@
     <script>
         $(function () {
             $('#createAssetModal').on('show.bs.modal', function (e) {
