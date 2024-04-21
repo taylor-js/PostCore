@@ -161,7 +161,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.IE_AM_C)
+        @* @foreach (var item in Model.IE_AM_C)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Assetcontentnumber)</td>
@@ -186,7 +186,7 @@
                 </td>
                 
             </tr>
-        }
+        } *@
     </tbody>
 </table>
 
@@ -244,7 +244,7 @@
 
 <br />
 
-<table id="amdistrib-table" class="display table" style="width:100%">
+<table id="amdistribs-table" class="display table" style="width:100%">
     <thead>
         <tr>
             <th>@Html.DisplayName("Owner")</th>
@@ -256,7 +256,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.IE_AM_D)
+        @* @foreach (var item in Model.IE_AM_D)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Assetdistributionowner)</td>
@@ -278,7 +278,7 @@
                     <button id='deleteDistribButton_@item.Uniquedistributionid' class='btn btn-danger delete-button btn-md' data-toggle='modal' data-target='#@modalIdDelete' data-url='@urlDelete'>Delete</button>
                 </td>
             </tr>
-        }
+        } *@
     </tbody>
 </table>
 <div class="modal fade" id="createDistribModal" role="dialog" data-url="@Url.Action("_DistribCreate", "AMDistrib", new { id = Model.AM.Uniqueassetid })">
@@ -338,6 +338,37 @@
     <script>
         $(document).ready(function () {
             $('#amcontents-table').DataTable({
+                "ajax": {
+                    "url": "/AMContent/GetAMContentData?id=" + '@Model.AM.Uniqueassetid',
+                    "type": "GET",
+                    "datatype": "json",
+                    "dataSrc": function (json) {
+                        console.log(json);
+                        return json.data.$values;
+                    }
+                },
+                "columns": [
+                    { "data": "Assetcontentnumber" },
+                    { "data": "Assetcontentdescription" },
+                    { "data": "Assetcontentversion" },
+                    { "data": "Assetcontentdateassigned" },
+                    {
+                        "data": "Uniqueassetidcont",
+                        "render": function (data, type, row) {
+                            var updateContentsUrl = `/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}`;
+                            //return `<a href="${updateContentsUrl}" class="btn btn-primary">Update</a>`;
+                            return `<button id='updateContentButton_${row.Uniquecontentid}' class='btn btn-primary update-content-button' data-toggle='modal' data-target='#updateContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}'>Update</button>`;
+                        }
+                    },
+                    {
+                        "data": "Uniqueassetidcont",
+                        "render": function (data, type, row) {
+                            var deleteContentsUrl = `/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}`;
+                            //return `<a href="${deleteContentsUrl}" class="btn btn-danger">Delete</a>`;
+                            return `<button id='deleteContentButton_${row.Uniquecontentid}' class='btn btn-danger delete-content-button' data-toggle='modal' data-target='#deleteContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}'>Delete</button>`;
+                        }
+                    },
+                ],
                 layout: {
                     topStart: function () {
                         let banner = document.createElement('div');
@@ -352,6 +383,9 @@
                                 className: 'btn btn-success',
                                 action: function (e, dt, node, config) {
                                     $('#createContentModal').modal('show'); // Use jQuery to show your modal
+                                },
+                                init: function (api, node, config) {
+                                    $(node).removeClass('dt-button')
                                 }
                             }
                             // You can add more buttons here
@@ -359,13 +393,43 @@
                     }
                 },
                 "searching": false,
-                "bPaginate": false,
-                "aoColumnDefs": [
-                    { "bSortable": false, "aTargets": [0, 1, 2, 3, 4, 5] },
-                    { "bSearchable": false, "aTargets": [0, 1, 2, 3, 4, 5] }
-                ]
+                "paging": false,
+                "ordering": false,
+                "info": false
             });
-            $('#amdistrib-table').DataTable({
+        });
+        $(document).ready(function () {
+            $('#amdistribs-table').DataTable({
+                "ajax": {
+                    "url": "/AMDistrib/GetAMDistribData?id=" + '@Model.AM.Uniqueassetid',
+                    "type": "GET",
+                    "datatype": "json",
+                    //"dataSrc": "data.$values",
+                    "dataSrc": function (json) {
+                        console.log(json);
+                        return json.data.$values;
+                    }
+                },
+                "columns": [
+                    { "data": "Assetdistributionowner" },
+                    { "data": "Assetdistributionlocation" },
+                    { "data": "Assetdistributionquantity" },
+                    { "data": "Assetdistributiondateassigned" },
+                    {
+                        "data": "Uniqueassetiddistr",
+                        "render": function (data, type, row) {
+                            var updateDistribsUrl = `/AMDistrib/_DistribUpdate/${data}?c_id=${row.Uniquedistributionid}`;
+                            return `<button id='updateDistribButton_${row.Uniquedistributionid}' class='btn btn-primary update-distrib-button' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}'>Update</button>`;
+                        }
+                    },
+                    {
+                        "data": "Uniqueassetiddistr",
+                        "render": function (data, type, row) {
+                            var deleteDistribsUrl = `/AMDistrib/_DistribDelete/${data}?c_id=${row.Uniquedistributionid}`;
+                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}'>Delete</button>`;
+                        }
+                    },
+                ],
                 layout: {
                     topStart: function () {
                         let banner = document.createElement('div');
@@ -380,6 +444,9 @@
                                 className: 'btn btn-success',
                                 action: function (e, dt, node, config) {
                                     $('#createDistribModal').modal('show'); // Use jQuery to show your modal
+                                },
+                                init: function (api, node, config) {
+                                    $(node).removeClass('dt-button')
                                 }
                             }
                             // You can add more buttons here
@@ -387,13 +454,12 @@
                     }
                 },
                 "searching": false,
-                "bPaginate": false,
-                "aoColumnDefs": [
-                    { "bSortable": false, "aTargets": [0, 1, 2, 3, 4, 5] },
-                    { "bSearchable": false, "aTargets": [0, 1, 2, 3, 4, 5] }
-                ]
+                "paging": false,
+                "ordering": false,
+                "info": false
             });
         });
+
     </script>
 
     <!-- Asset Update and Delete JavaScript -->
@@ -436,27 +502,26 @@
                 });
             });
         });
-        @foreach (var item in Model.IE_AM_C)
-        {
-            <text>
-                $('#updateContentButton_@item.Uniquecontentid, #deleteContentButton_@item.Uniquecontentid').on('click', function () {
-                    var url = $(this).data('url');
-                    var modalId = $(this).data('target');
-                    var modalBody = $(modalId).find('.modal-body');
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'html',
-                        success: function (data) {
-                            modalBody.html(data);
-                        },
-                        error: function () {
-                            modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                        }
-                    });
-                });
-            </text>
-        }
+        $(document).on('click', '#amcontents-table .update-content-button, #amcontents-table .delete-content-button', function () {
+            var url = $(this).data('url');
+            var modalId = $(this).data('target');
+            var modalBody = $(modalId).find('.modal-body');
+            //var modalBodyId = modalId.replace('#', '') + 'Body';
+            //var modalBody = $('#' + modalBodyId);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'html',
+                success: function (data) {
+                    console.log(data);
+                    modalBody.html(data);
+                },
+                error: function () {
+                    modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                }
+            });
+        });
+
     </script>
 
     <!-- Distribution Create, Update, and Delete JavaScript -->
@@ -478,26 +543,24 @@
                 });
             });
         });
-        @foreach (var item in Model.IE_AM_D)
-        {
-            <text>
-                $('#updateDistribButton_@item.Uniquedistributionid, #deleteDistribButton_@item.Uniquedistributionid').on('click', function () {
-                    var url = $(this).data('url');
-                    var modalId = $(this).data('target');
-                    var modalBody = $(modalId).find('.modal-body');
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'html',
-                        success: function (data) {
-                            modalBody.html(data);
-                        },
-                        error: function () {
-                            modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                        }
-                    });
-                });
-            </text>
-        }
+        $(document).on('click', '#amdistribs-table .update-distrib-button, #amdistribs-table .delete-distrib-button', function () {
+            var url = $(this).data('url');
+            var modalId = $(this).data('target');
+            var modalBody = $(modalId).find('.modal-body');
+            //var modalBodyId = modalId.replace('#', '') + 'Body';
+            //var modalBody = $('#' + modalBodyId);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'html',
+                success: function (data) {
+                    console.log(data);
+                    modalBody.html(data);
+                },
+                error: function () {
+                    modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                }
+            });
+        });
     </script>
 }

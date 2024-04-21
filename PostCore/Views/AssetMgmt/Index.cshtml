@@ -35,15 +35,44 @@
 @section scripts {
     <script>
         $(document).ready(function () {
-            $('#assets-table').DataTable({
+            var table = $('#assets-table').DataTable({
+                "ajax": {
+                    "url": "/AssetMgmt/GetAssetMgmtData",
+                    "type": "GET",
+                    "datatype": "json",
+                    "dataSrc": function (json) {
+                        console.log(json);
+                        return json.data || [];
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "uniqueassetid", "render": function (data, type, row, meta) {
+                            var detailsUrl = `/AssetMgmt/AssetDetails/${data}`;
+                            return `<a href="${detailsUrl}" class="btn btn-outline-secondary">Details</a>`;
+                        }
+                    },
+                    { "data": "assetid" },
+                    { "data": "assettype" },
+                    { "data": "assetname" },
+                    { "data": "assetcategory" },
+                    { "data": "assetworkordernumber" },
+                    { "data": "assetpurchaseordernumber" },
+                    { "data": "assetdate" },
+                    { "data": "assetprojectmanager" },
+                    { "data": "assetequipmentamount" }
+                ],
                 layout: {
                     topStart: {
                         buttons: [
                             {
                                 text: 'Create',
-                                className: 'btn btn-outline-secondary input-group-append',
+                                className: 'btn btn-outline-secondary',
                                 action: function (e, dt, node, config) {
                                     $('#createAssetModal').modal('show'); // Use jQuery to show your modal
+                                },
+                                init: function (api, node, config) {
+                                    $(node).removeClass('dt-button')
                                 }
                             }
                             // You can add more buttons here
@@ -53,7 +82,11 @@
                 },
                 scrollY: '500px',
                 scrollCollapse: true,
-                paging: true
+                paging: true,
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
             });
         });
     </script>

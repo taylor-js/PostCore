@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PostCore.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace InfoMorph.Controllers
 {
@@ -24,6 +26,38 @@ namespace InfoMorph.Controllers
                 IE_AM_C = contents
             };
             return View(compositionCollection);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAMContentData(Guid? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var assetManagementContents = await _context.Amcontents
+                                                        .Where(c => c.Uniqueassetidcont == id)
+                                                        .ToListAsync();
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+
+            return Json(new { success = true, data = assetManagementContents }, options);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAMContentData()
+        {
+            var assetManagementContents = await _context.Amcontents.ToListAsync();
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+
+            return Json(new { success = true, data = assetManagementContents }, options);
         }
 
         [HttpGet]

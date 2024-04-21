@@ -8,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+
+
+
 builder.Services.AddRazorPages();
 
 var connectionString = builder.Configuration.GetConnectionString("HerokuPostgres");

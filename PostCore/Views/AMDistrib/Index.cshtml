@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.IE_AM_D)
+        @* @foreach (var item in Model.IE_AM_D)
         {
             <tr>
                 <td>
@@ -29,7 +29,7 @@
                 <td>@Html.DisplayFor(modelItem => item.Assetdistributionquantity)</td>
                 <td>@Html.DisplayFor(modelItem => item.Assetdistributiondateassigned)</td>
             </tr>
-        }
+        } *@
     </tbody>
 </table>
 
@@ -37,6 +37,28 @@
     <script>
         $(document).ready(function () {
             $('#amdistrib-index-table').DataTable({
+                "ajax": {
+                    "url": "/AMDistrib/GetAllAMDistribData",
+                    "type": "GET",
+                    "datatype": "json",
+                    "dataSrc": function (json) {
+                        console.log(json);
+                        return json.data.$values;
+                    }
+                },
+                "columns": [
+                    {
+                        "data": "Uniqueassetiddistr",
+                        "render": function (data, type, row) {
+                            var detailsUrl = "/AssetMgmt/AssetDetails/" + data;
+                            return `<a href="${detailsUrl}" class="btn btn-outline-secondary">Details</a>`;
+                        }
+                    },
+                    { "data": "Assetdistributionowner" },
+                    { "data": "Assetdistributionlocation" },
+                    { "data": "Assetdistributionquantity" },
+                    { "data": "Assetdistributiondateassigned" },
+                ],
                 scrollY: '500px',
                 scrollCollapse: true,
                 paging: true

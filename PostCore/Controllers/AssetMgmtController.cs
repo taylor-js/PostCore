@@ -34,11 +34,13 @@ namespace PostCore.Controllers
 
 
         [HttpGet]
-        public async Task<PartialViewResult> IndexGrid(string search)
+        public async Task<IActionResult> GetAssetMgmtData()
         {
             //var dataCollection = string.IsNullOrEmpty(search) ? await _context.AssetMgmts.ToListAsync() : await GetFilteredData(search);
             var dataCollection = await _context.AssetMgmts.ToListAsync();
-            return PartialView("_IndexGrid", dataCollection);
+            //return PartialView("_IndexGrid", dataCollection);
+            //var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return Json(new { success = true, data = dataCollection });
         }
 
         public async Task<IEnumerable<AssetMgmt>> GetFilteredData(string search)
