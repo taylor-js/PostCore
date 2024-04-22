@@ -19,18 +19,6 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model.IE_AM_C)
-        {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Uniqueassetidcont" class="btn btn-outline-secondary">Details</a>
-                </td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentnumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentdescription)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentversion)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentdateassigned)</td>
-            </tr>
-        } *@
     </tbody>
     <tfoot>
         <tr>
@@ -69,6 +57,7 @@
                     { "data": "Assetcontentversion" },
                     { "data": "Assetcontentdateassigned" },
                 ],
+                responsive: true,
                 scrollY: '500px',
                 scrollCollapse: true,
                 paging: true

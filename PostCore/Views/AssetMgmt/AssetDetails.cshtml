@@ -161,32 +161,6 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model.IE_AM_C)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentnumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentdescription)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentversion)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcontentdateassigned)</td>
-                <td>
-                    @{
-                        // Instead of redeclaring, directly use it in the string interpolation
-                        var modalIdUpdate = "updateContentModal_" + item.Uniquecontentid;
-                        string urlUpdate = Url.Action("_ContentUpdate", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid }) ?? "";
-                    }
-                    <button id='updateContentButton_@item.Uniquecontentid' class='btn btn-primary update-button btn-md' data-toggle='modal' data-target='#@modalIdUpdate' data-url='@urlUpdate'>Update</button>
-                </td>
-                <td>
-                    @{
-                        // Directly use the item.Uniquecontentid in the IDs and data attributes
-                        var modalIdDelete = "deleteContentModal_" + item.Uniquecontentid;
-                        string urlDelete = Url.Action("_ContentDelete", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid }) ?? "";
-                    }
-                    <button id='deleteContentButton_@item.Uniquecontentid' class='btn btn-danger delete-button btn-md' data-toggle='modal' data-target='#@modalIdDelete' data-url='@urlDelete'>Delete</button>
-                </td>
-                
-            </tr>
-        } *@
     </tbody>
 </table>
 
@@ -256,29 +230,6 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model.IE_AM_D)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Assetdistributionowner)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetdistributionlocation)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetdistributionquantity)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetdistributiondateassigned)</td>
-                <td>
-                    @{
-                        var modalIdUpdate = "updateDistribModal_" + item.Uniquedistributionid;
-                        string urlUpdate = Url.Action("_DistribUpdate", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid }) ?? "";
-                    }
-                    <button id='updateDistribButton_@item.Uniquedistributionid' class='btn btn-primary update-button btn-md' data-toggle='modal' data-target='#@modalIdUpdate' data-url='@urlUpdate'>Update</button>
-                </td>
-                <td>
-                    @{
-                        var modalIdDelete = "deleteDistribModal_" + item.Uniquedistributionid;
-                        string urlDelete = Url.Action("_DistribDelete", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid }) ?? "";
-                    }
-                    <button id='deleteDistribButton_@item.Uniquedistributionid' class='btn btn-danger delete-button btn-md' data-toggle='modal' data-target='#@modalIdDelete' data-url='@urlDelete'>Delete</button>
-                </td>
-            </tr>
-        } *@
     </tbody>
 </table>
 <div class="modal fade" id="createDistribModal" role="dialog" data-url="@Url.Action("_DistribCreate", "AMDistrib", new { id = Model.AM.Uniqueassetid })">
@@ -356,7 +307,6 @@
                         "data": "Uniqueassetidcont",
                         "render": function (data, type, row) {
                             var updateContentsUrl = `/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}`;
-                            //return `<a href="${updateContentsUrl}" class="btn btn-primary">Update</a>`;
                             return `<button id='updateContentButton_${row.Uniquecontentid}' class='btn btn-primary update-content-button' data-toggle='modal' data-target='#updateContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}'>Update</button>`;
                         }
                     },
@@ -364,7 +314,6 @@
                         "data": "Uniqueassetidcont",
                         "render": function (data, type, row) {
                             var deleteContentsUrl = `/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}`;
-                            //return `<a href="${deleteContentsUrl}" class="btn btn-danger">Delete</a>`;
                             return `<button id='deleteContentButton_${row.Uniquecontentid}' class='btn btn-danger delete-content-button' data-toggle='modal' data-target='#deleteContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}'>Delete</button>`;
                         }
                     },
@@ -382,16 +331,16 @@
                                 text: 'Create',
                                 className: 'btn btn-success',
                                 action: function (e, dt, node, config) {
-                                    $('#createContentModal').modal('show'); // Use jQuery to show your modal
+                                    $('#createContentModal').modal('show');
                                 },
                                 init: function (api, node, config) {
                                     $(node).removeClass('dt-button')
                                 }
                             }
-                            // You can add more buttons here
                         ]
                     }
                 },
+                "responsive": true,
                 "searching": false,
                 "paging": false,
                 "ordering": false,
@@ -404,7 +353,6 @@
                     "url": "/AMDistrib/GetAMDistribData?id=" + '@Model.AM.Uniqueassetid',
                     "type": "GET",
                     "datatype": "json",
-                    //"dataSrc": "data.$values",
                     "dataSrc": function (json) {
                         console.log(json);
                         return json.data.$values;
@@ -426,7 +374,7 @@
                         "data": "Uniqueassetiddistr",
                         "render": function (data, type, row) {
                             var deleteDistribsUrl = `/AMDistrib/_DistribDelete/${data}?c_id=${row.Uniquedistributionid}`;
-                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}'>Delete</button>`;
+                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' data-toggle='modal' data-target='#deleteDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribDelete/${data}?d_id=${row.Uniquedistributionid}'>Delete</button>`;
                         }
                     },
                 ],
@@ -443,16 +391,16 @@
                                 text: 'Create',
                                 className: 'btn btn-success',
                                 action: function (e, dt, node, config) {
-                                    $('#createDistribModal').modal('show'); // Use jQuery to show your modal
+                                    $('#createDistribModal').modal('show');
                                 },
                                 init: function (api, node, config) {
                                     $(node).removeClass('dt-button')
                                 }
                             }
-                            // You can add more buttons here
                         ]
                     }
                 },
+                "responsive": true,
                 "searching": false,
                 "paging": false,
                 "ordering": false,
@@ -506,8 +454,6 @@
             var url = $(this).data('url');
             var modalId = $(this).data('target');
             var modalBody = $(modalId).find('.modal-body');
-            //var modalBodyId = modalId.replace('#', '') + 'Body';
-            //var modalBody = $('#' + modalBodyId);
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -547,8 +493,6 @@
             var url = $(this).data('url');
             var modalId = $(this).data('target');
             var modalBody = $(modalId).find('.modal-body');
-            //var modalBodyId = modalId.replace('#', '') + 'Body';
-            //var modalBody = $('#' + modalBodyId);
             $.ajax({
                 url: url,
                 type: 'GET',

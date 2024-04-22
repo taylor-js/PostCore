@@ -2,7 +2,6 @@
 @using PostCore.Models;
 @using System.Text.Encodings.Web
 @using System.Globalization;
-@* @using NonFactors.Mvc.Grid; *@
 
 <table id="assets-table" class="display table" style="width:100%">
     <thead>
@@ -20,21 +19,6 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model)
-        {
-            <tr>
-                <td><a asp-controller="AssetMgmt" asp-action="AssetDetails" asp-route-id="@item.Uniqueassetid" class="btn btn-outline-secondary">Edit</a></td>
-                <td>@Html.DisplayFor(modelItem => item.Assetid)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assettype)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetname)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetcategory)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetworkordernumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetpurchaseordernumber)</td>
-                <td data-order="@item.Assetdate.ToString("yyyy-MM-dd")">@Html.DisplayFor(modelItem => item.Assetdate)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetprojectmanager)</td>
-                <td>@Html.DisplayFor(modelItem => item.Assetequipmentamount)</td>
-            </tr>
-        } *@
     </tbody>
     <tfoot>
         <tr>
