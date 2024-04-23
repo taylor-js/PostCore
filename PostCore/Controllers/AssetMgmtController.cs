@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PostCore.Models;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace PostCore.Controllers
 {
@@ -36,40 +38,16 @@ namespace PostCore.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAssetMgmtData()
         {
-            //var dataCollection = string.IsNullOrEmpty(search) ? await _context.AssetMgmts.ToListAsync() : await GetFilteredData(search);
             var dataCollection = await _context.AssetMgmts.ToListAsync();
-            //return PartialView("_IndexGrid", dataCollection);
-            //var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return Json(new { success = true, data = dataCollection });
+
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
+            };
+
+            return Json(new { success = true, data = dataCollection }, options);
         }
-
-        public async Task<IEnumerable<AssetMgmt>> GetFilteredData(string search)
-        {
-            string lowerCaseSearch = search.ToLower();
-
-            // Instead of discards, use actual variables
-            bool isInt = int.TryParse(search, out int searchInt);
-            bool isDouble = decimal.TryParse(search, out decimal searchDouble);
-            bool isDateTime = DateTime.TryParse(search, out DateTime searchDateTime);
-            DateOnly searchDateOnly = DateOnly.FromDateTime(searchDateTime);
-
-            return await _context.AssetMgmts
-                .Where(x =>
-                    (isInt && (x.Assetid == searchInt ||
-                               x.Assetworkordernumber == searchInt ||
-                               x.Assetpurchaseordernumber == searchInt)) ||
-                    (isDouble && x.Assetequipmentamount == searchDouble) || // Corrected to compare with searchDouble
-                    (isDateTime && x.Assetdate == searchDateOnly) || // Adjust based on your database column type
-                    (x.Assettype != null && x.Assettype.ToLower().Contains(lowerCaseSearch)) ||
-                    (x.Assetname != null && x.Assetname.ToLower().Contains(lowerCaseSearch)) ||
-                    (x.Assetmanufacturer != null && x.Assetmanufacturer.ToLower().Contains(lowerCaseSearch)) ||
-                    (x.Assetcategory != null && x.Assetcategory.ToLower().Contains(lowerCaseSearch)) ||
-                    (x.Assetprojectmanager != null && x.Assetprojectmanager.ToLower().Contains(lowerCaseSearch)) ||
-                    (x.Assetdescription != null && x.Assetdescription.ToLower().Contains(lowerCaseSearch))
-                )
-                .ToListAsync();
-        }
-
 
         [HttpGet]
         public async Task<ActionResult> AssetDetails(Guid? id)

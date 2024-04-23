@@ -42,25 +42,25 @@
                     "datatype": "json",
                     "dataSrc": function (json) {
                         console.log(json);
-                        return json.data || [];
+                        return json.data.$values;
                     }
                 },
                 "columns": [
                     {
-                        "data": "uniqueassetid", "render": function (data, type, row, meta) {
+                        "data": "Uniqueassetid", "render": function (data, type, row, meta) {
                             var detailsUrl = `/AssetMgmt/AssetDetails/${data}`;
                             return `<a href="${detailsUrl}" class="btn btn-outline-secondary">Details</a>`;
                         }
                     },
-                    { "data": "assetid" },
-                    { "data": "assettype" },
-                    { "data": "assetname" },
-                    { "data": "assetcategory" },
-                    { "data": "assetworkordernumber" },
-                    { "data": "assetpurchaseordernumber" },
-                    { "data": "assetdate" },
-                    { "data": "assetprojectmanager" },
-                    { "data": "assetequipmentamount" }
+                    { "data": "Assetid" },
+                    { "data": "Assettype" },
+                    { "data": "Assetname" },
+                    { "data": "Assetcategory" },
+                    { "data": "Assetworkordernumber" },
+                    { "data": "Assetpurchaseordernumber" },
+                    { "data": "Assetdate" },
+                    { "data": "Assetprojectmanager" },
+                    { "data": "Assetequipmentamount" }
                 ],
                 layout: {
                     topStart: {
