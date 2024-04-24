@@ -1,5 +1,4 @@
 ﻿@model PostCore.Models.Amcontent
-
 <form id="deleteContentForm" asp-controller="AMContent" asp-action="_ContentDelete" asp-route-id="@Model.Uniqueassetidcont" asp-route-c_id="@Model.Uniquecontentid" onsubmit="return jQueryAjaxPostDeleteContent(this);" data-ajax="true" method="post">
     @Html.AntiForgeryToken()
 

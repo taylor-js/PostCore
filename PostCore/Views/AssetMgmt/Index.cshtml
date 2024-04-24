@@ -1,7 +1,6 @@
 ﻿@model PostCore.Models.CompositionCollection
 @using PostCore.Models;
 @using System.Text.Encodings.Web
-@using NonFactors.Mvc.Grid;
 @{
     ViewBag.Title = "Index";
 }
@@ -9,11 +8,27 @@
 <h2 class="text-center">PostCore - Asset Management</h2>
 <br />
 
-@{
-    await Html.RenderPartialAsync("_IndexGrid", Model.IE_AM);
-}
-<br />
+<table id="assets-table" class="display table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Url</th>
+            <th>@Html.DisplayName("ID")</th>
+            <th>@Html.DisplayName("Type")</th>
+            <th>@Html.DisplayName("Name")</th>
+            <th>@Html.DisplayName("Category")</th>
+            <th>@Html.DisplayName("WO#")</th>
+            <th>@Html.DisplayName("PO#")</th>
+            <th>@Html.DisplayName("Date")</th>
+            <th>@Html.DisplayName("PM")</th>
+            <th>@Html.DisplayName("Amount")</th>
+            <th>@Html.DisplayName("Descr")</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
+<br />
 
 <div class="modal fade" id="createAssetModal" role="dialog" data-url="@Url.Action("_AssetCreate", "AssetMgmt")">
     <div class="modal-dialog modal-lg" role="document">
@@ -34,9 +49,29 @@
 
 @section scripts {
     <script>
+        $(function () {
+            $('#createAssetModal').on('show.bs.modal', function (e) {
+                var url = $(this).data('url');
+                var modalBody = $(this).find('.modal-body');
+                // Load content asynchronously
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
         $(document).ready(function () {
-            var table = $('#assets-table').DataTable({
-                "ajax": {
+            $('#assets-table').DataTable({
+                ajax: {
                     "url": "/AssetMgmt/GetAssetMgmtData",
                     "type": "GET",
                     "datatype": "json",
@@ -45,7 +80,7 @@
                         return json.data.$values;
                     }
                 },
-                "columns": [
+                columns: [
                     {
                         "data": "Uniqueassetid", "render": function (data, type, row, meta) {
                             var detailsUrl = `/AssetMgmt/AssetDetails/${data}`;
@@ -58,9 +93,27 @@
                     { "data": "Assetcategory" },
                     { "data": "Assetworkordernumber" },
                     { "data": "Assetpurchaseordernumber" },
-                    { "data": "Assetdate" },
+                    {
+                        "data": "Assetdate", "render": function (data, type, row) {
+                            return moment(data).format('MM/DD/YYYY');
+                        }
+                    },
                     { "data": "Assetprojectmanager" },
-                    { "data": "Assetequipmentamount" }
+                    {
+                        "data": "Assetequipmentamount", "render": function (data, type, row) {
+                            return new Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'USD',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            }).format(data);
+                        }
+                    },
+                    { "data": "Assetdescription" },
+                ],
+                columnDefs: [
+                    { targets: [0], searchale: false },
+                    { targets: [10], searchale: true, visible: false },
                 ],
                 layout: {
                     topStart: {
@@ -80,30 +133,11 @@
                     },
                     top2Start: 'pageLength',
                 },
+                initComplete: () => { $(".table").show(); },
                 responsive: true,
                 scrollY: '500px',
                 scrollCollapse: true,
                 paging: true,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $('#createAssetModal').on('show.bs.modal', function (e) {
-                var url = $(this).data('url');
-                var modalBody = $(this).find('.modal-body');
-                // Load content asynchronously
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (data) {
-                        modalBody.html(data);
-                    },
-                    error: function () {
-                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                    }
-                });
             });
         });
     </script>

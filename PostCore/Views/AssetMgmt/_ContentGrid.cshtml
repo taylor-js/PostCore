@@ -1,0 +1,66 @@
+﻿<table id="amcontents-table" class="display table" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Number")</th>
+            <th>@Html.DisplayName("Description")</th>
+            <th>@Html.DisplayName("Version")</th>
+            <th>@Html.DisplayName("Date")</th>
+            <th class="col-sm-1"></th>
+            <th class="col-sm-1"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<div class="modal fade" id="createContentModal" role="dialog" data-url="@Url.Action("_ContentCreate", "AMContent", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createContentModalLabel">Create Asset Content Record for Asset ID @Model.AM.Assetid</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create-content-modal-body-content">
+                <!-- Partial view content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+@foreach (var item in Model.IE_AM_C)
+{
+    <div class="modal fade" id="updateContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentUpdate", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="updateContentModal_@item.Uniquecontentid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateContentModalLabel">Update Asset Content Record for Content Number: @item.Assetcontentnumber</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{updateContentModalBody_@item.Uniquecontentid}">
+                    <!-- Update form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var item in Model.IE_AM_C)
+{
+    <div class="modal fade" id="deleteContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentDelete", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="deleteContentModal_@item.Uniquecontentid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteContentModalLabel">Are you sure you want to delete content record for content number: @item.Assetcontentnumber?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{deleteContentModalBody_@item.Uniquecontentid}">
+                    <!-- Delete confirmation form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,66 @@
+﻿<table id="amdistribs-table" class="display table" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Html.DisplayName("Owner")</th>
+            <th>@Html.DisplayName("Location")</th>
+            <th>@Html.DisplayName("Quantity")</th>
+            <th>@Html.DisplayName("Date")</th>
+            <th class="col-sm-1"></th>
+            <th class="col-sm-1"></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<div class="modal fade" id="createDistribModal" role="dialog" data-url="@Url.Action("_DistribCreate", "AMDistrib", new { id = Model.AM.Uniqueassetid })">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createDistribModalLabel">Create Asset Distribution Record for Asset Record @Model.AM.Assetid</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="create-distrib-modal-body-content">
+                <!-- Partial view content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+@foreach (var item in Model.IE_AM_D)
+{
+    <div class="modal fade" id="updateDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribUpdate", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="updateDistribModal_@item.Uniquedistributionid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateDistribModalLabel">Update Distribution Record for Distribution Owner: @item.Assetdistributionowner</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{updateDistribModalBody_@item.Uniquedistributionid}">
+                    <!-- Update form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@foreach (var item in Model.IE_AM_D)
+{
+    <div class="modal fade" id="deleteDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribDelete", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="deleteContentModal_@item.Uniquedistributionid">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteDistribModalLabel">Are you sure you want to delete record for distribution owner: @item.Assetdistributionowner?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="{deleteDistribModalBody_@item.Uniquedistributionid}">
+                    <!-- Delete confirmation form content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+}

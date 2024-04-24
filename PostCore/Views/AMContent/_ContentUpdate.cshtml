@@ -1,5 +1,4 @@
 ﻿@model PostCore.Models.Amcontent
-
 @* //asp-items="ViewBag.UniqueAssetIdcont" (for dropdowns - goes in input) *@
 <form id="updateContentForm" asp-controller="Amcontent" asp-action="_ContentUpdate" asp-route-id='@Model.Uniqueassetidcont' asp-route-c_id='@Model.Uniquecontentid' onsubmit="return jQueryAjaxPostUpdateContent(this);" data-ajax="true" method="post">
     @Html.AntiForgeryToken()

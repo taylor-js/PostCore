@@ -7,14 +7,14 @@
     @await RenderSectionAsync("Styles", required: false)
     <link asp-append-version="true" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link asp-append-version="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link asp-append-version="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
     <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css" />
     <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.5.0/css/rowReorder.dataTables.css" />
     <link asp-append-version="true" rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css" />
     <link asp-append-version="true" rel="stylesheet" href="~/css/site.css" />
-    @* <link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet" /> *@
-
 </head>
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-md navbar-light bg-dark">
@@ -67,12 +67,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.5.0/js/rowReorder.dataTables.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-    
     <script src="~/js/site.js"></script>
-    @* <script src="~/js/mvc-grid/mvc-grid.js"></script>
-    <script>
-        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
-    </script> *@
 
     @await RenderSectionAsync("scripts", required: false)
 </body>

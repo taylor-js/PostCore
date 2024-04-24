@@ -43,4 +43,6 @@ nav.navbar.bg-dark .navbar-toggler-icon {
     }
 }
 
-
+.table {
+    display: none;
+}

@@ -1,5 +1,4 @@
 ﻿@model PostCore.Models.CompositionCollection;
-@using NonFactors.Mvc.Grid;
 @using Microsoft.AspNetCore.Mvc.ViewFeatures;
 @using Microsoft.AspNetCore.Mvc.Rendering;
 @using System.Threading.Tasks;
@@ -110,6 +109,7 @@
             </div>
         </div>
     </div>
+    @* ROW 7 *@
     <div class="form-group">
         <a asp-controller="AssetMgmt" asp-action="_AssetUpdate" asp-route-id="@Model.AM.Uniqueassetid" data-toggle="modal" data-target="#updateAssetModal" class="center btn btn-primary" style="font-size:20px;">Update</a>
         <a asp-controller="AssetMgmt" asp-action="_AssetDelete" asp-route-id="@Model.AM.Uniqueassetid" data-toggle="modal" data-target="#deleteAssetModal" class="center btn btn-danger" style="font-size:20px;">Delete</a>
@@ -149,143 +149,39 @@
 </div>
 <br />
 
-<table id="amcontents-table" class="display table" style="width:100%">
-    <thead>
-        <tr>
-            <th>@Html.DisplayName("Number")</th>
-            <th>@Html.DisplayName("Description")</th>
-            <th>@Html.DisplayName("Version")</th>
-            <th>@Html.DisplayName("Date")</th>
-            <th class="col-sm-1"></th>
-            <th class="col-sm-1"></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
-<div class="modal fade" id="createContentModal" role="dialog" data-url="@Url.Action("_ContentCreate", "AMContent", new { id = Model.AM.Uniqueassetid })">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createContentModalLabel">Create Asset Content Record for Asset ID @Model.AM.Assetid</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="create-content-modal-body-content">
-                <!-- Partial view content will be loaded here -->
-            </div>
-        </div>
-    </div>
-</div>
-@foreach (var item in Model.IE_AM_C)
-{
-    <div class="modal fade" id="updateContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentUpdate", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="updateContentModal_@item.Uniquecontentid">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateContentModalLabel">Update Asset Content Record for Content Number: @item.Assetcontentnumber</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="{updateContentModalBody_@item.Uniquecontentid}">
-                    <!-- Update form content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
-}
-@foreach (var item in Model.IE_AM_C)
-{
-    <div class="modal fade" id="deleteContentModal_@item.Uniquecontentid" role="dialog" data-url="@Url.Action("_ContentDelete", "AMContent", new { id = item.Uniqueassetidcont, c_id = item.Uniquecontentid })" aria-labelledby="deleteContentModal_@item.Uniquecontentid">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteContentModalLabel">Are you sure you want to delete content record for content number: @item.Assetcontentnumber?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="{deleteContentModalBody_@item.Uniquecontentid}">
-                    <!-- Delete confirmation form content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
+@{
+    await Html.RenderPartialAsync("_ContentGrid", Model);
 }
 
 <br />
 
-<table id="amdistribs-table" class="display table" style="width:100%">
-    <thead>
-        <tr>
-            <th>@Html.DisplayName("Owner")</th>
-            <th>@Html.DisplayName("Location")</th>
-            <th>@Html.DisplayName("Quantity")</th>
-            <th>@Html.DisplayName("Date")</th>
-            <th class="col-sm-1"></th>
-            <th class="col-sm-1"></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<div class="modal fade" id="createDistribModal" role="dialog" data-url="@Url.Action("_DistribCreate", "AMDistrib", new { id = Model.AM.Uniqueassetid })">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createDistribModalLabel">Create Asset Distribution Record for Asset Record @Model.AM.Assetid</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="create-distrib-modal-body-content">
-                <!-- Partial view content will be loaded here -->
-            </div>
-        </div>
-    </div>
-</div>
-@foreach (var item in Model.IE_AM_D)
-{
-    <div class="modal fade" id="updateDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribUpdate", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="updateDistribModal_@item.Uniquedistributionid">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateDistribModalLabel">Update Distribution Record for Distribution Owner: @item.Assetdistributionowner</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="{updateDistribModalBody_@item.Uniquedistributionid}">
-                    <!-- Update form content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
+@{
+    await Html.RenderPartialAsync("_DistribGrid", Model);
 }
-@foreach (var item in Model.IE_AM_D)
-{
-    <div class="modal fade" id="deleteDistribModal_@item.Uniquedistributionid" role="dialog" data-url="@Url.Action("_DistribDelete", "AMDistrib", new { id = item.Uniqueassetiddistr, d_id = item.Uniquedistributionid })" aria-labelledby="deleteContentModal_@item.Uniquedistributionid">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteDistribModalLabel">Are you sure you want to delete record for distribution owner: @item.Assetdistributionowner?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="{deleteDistribModalBody_@item.Uniquedistributionid}">
-                    <!-- Delete confirmation form content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
-}
-@* / *@
 
 @section scripts {
+    <!-- Asset Update and Delete JavaScript -->
+    <script>
+        $(function () {
+            $('#updateAssetModal, #deleteAssetModal').on('show.bs.modal', function (e) {
+                var url = $(this).data('url');
+                var modalBody = $(this).find('.modal-body');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (data) {
+                        modalBody.html(data);
+                    },
+                    error: function () {
+                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Content JavaScript Datatable -->
     <script>
         $(document).ready(function () {
             $('#amcontents-table').DataTable({
@@ -302,19 +198,23 @@
                     { "data": "Assetcontentnumber" },
                     { "data": "Assetcontentdescription" },
                     { "data": "Assetcontentversion" },
-                    { "data": "Assetcontentdateassigned" },
+                    {
+                        "data": "Assetcontentdateassigned", "render": function (data, type, row) {
+                            return moment(data).format('MM/DD/YYYY');
+                        }
+                    },
                     {
                         "data": "Uniqueassetidcont",
                         "render": function (data, type, row) {
                             var updateContentsUrl = `/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}`;
-                            return `<button id='updateContentButton_${row.Uniquecontentid}' class='btn btn-primary update-content-button' data-toggle='modal' data-target='#updateContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}'>Update</button>`;
+                            return `<button id='updateContentButton_${row.Uniquecontentid}' class='btn btn-primary update-content-button' data-toggle='modal' data-target='#updateContentModal_${row.Uniquecontentid}' data-url='${updateContentsUrl}'>Update</button>`;
                         }
                     },
                     {
                         "data": "Uniqueassetidcont",
                         "render": function (data, type, row) {
                             var deleteContentsUrl = `/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}`;
-                            return `<button id='deleteContentButton_${row.Uniquecontentid}' class='btn btn-danger delete-content-button' data-toggle='modal' data-target='#deleteContentModal_${row.Uniquecontentid}' data-url='/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}'>Delete</button>`;
+                            return `<button id='deleteContentButton_${row.Uniquecontentid}' class='btn btn-danger delete-content-button' data-toggle='modal' data-target='#deleteContentModal_${row.Uniquecontentid}' data-url='${deleteContentsUrl}'>Delete</button>`;
                         }
                     },
                 ],
@@ -340,13 +240,17 @@
                         ]
                     }
                 },
-                "responsive": true,
-                "searching": false,
-                "paging": false,
-                "ordering": false,
-                "info": false
+                initComplete: () => { $(".table").show(); },
+                responsive: true,
+                searching: false,
+                paging: false,
+                ordering: false,
+                info: false
             });
         });
+    </script>
+    <!-- Distribution JavaScript Datatable -->
+    <script>
         $(document).ready(function () {
             $('#amdistribs-table').DataTable({
                 "ajax": {
@@ -356,25 +260,29 @@
                     "dataSrc": function (json) {
                         console.log(json);
                         return json.data.$values;
-                    }
+                    },
                 },
                 "columns": [
                     { "data": "Assetdistributionowner" },
                     { "data": "Assetdistributionlocation" },
                     { "data": "Assetdistributionquantity" },
-                    { "data": "Assetdistributiondateassigned" },
                     {
-                        "data": "Uniqueassetiddistr",
-                        "render": function (data, type, row) {
-                            var updateDistribsUrl = `/AMDistrib/_DistribUpdate/${data}?c_id=${row.Uniquedistributionid}`;
-                            return `<button id='updateDistribButton_${row.Uniquedistributionid}' class='btn btn-primary update-distrib-button' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}'>Update</button>`;
+                        "data": "Assetdistributiondateassigned", "render": function (data, type, row) {
+                            return moment(data).format('MM/DD/YYYY');
                         }
                     },
                     {
                         "data": "Uniqueassetiddistr",
                         "render": function (data, type, row) {
-                            var deleteDistribsUrl = `/AMDistrib/_DistribDelete/${data}?c_id=${row.Uniquedistributionid}`;
-                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' data-toggle='modal' data-target='#deleteDistribModal_${row.Uniquedistributionid}' data-url='/AMDistrib/_DistribDelete/${data}?d_id=${row.Uniquedistributionid}'>Delete</button>`;
+                            var updateDistribsUrl = `/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}`;
+                            return `<button id='updateDistribButton_${row.Uniquedistributionid}' class='btn btn-primary update-distrib-button' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='${updateDistribsUrl}'>Update</button>`;
+                        }
+                    },
+                    {
+                        "data": "Uniqueassetiddistr",
+                        "render": function (data, type, row) {
+                            var deleteDistribsUrl = `/AMDistrib/_DistribDelete/${data}?d_id=${row.Uniquedistributionid}`;
+                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' data-toggle='modal' data-target='#deleteDistribModal_${row.Uniquedistributionid}' data-url='${deleteDistribsUrl}'>Delete</button>`;
                         }
                     },
                 ],
@@ -400,111 +308,57 @@
                         ]
                     }
                 },
-                "responsive": true,
-                "searching": false,
-                "paging": false,
-                "ordering": false,
-                "info": false
-            });
-        });
-
-    </script>
-
-    <!-- Asset Update and Delete JavaScript -->
-    <script>
-        $(function () {
-            $('#updateAssetModal, #deleteAssetModal').on('show.bs.modal', function (e) {
-                var url = $(this).data('url');
-                var modalBody = $(this).find('.modal-body');
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (data) {
-                        modalBody.html(data);
-                    },
-                    error: function () {
-                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                    }
-                });
+                initComplete: () => { $(".table").show(); },
+                responsive: true,
+                searching: false,
+                paging: false,
+                ordering: false,
+                info: false
             });
         });
     </script>
-
-    <!-- Content Create, Update, and Delete JavaScript -->
+    <!-- Content & Distribution Create Update and Delete JavaScript -->
     <script>
-        $(function () {
-            $('#createContentModal').on('show.bs.modal', function (e) {
-                var url = $(this).data('url');
-                var modalBody = $(this).find('.modal-body');
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (data) {
-                        modalBody.html(data);
-                    },
-                    error: function () {
-                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                    }
-                });
-            });
-        });
-        $(document).on('click', '#amcontents-table .update-content-button, #amcontents-table .delete-content-button', function () {
-            var url = $(this).data('url');
-            var modalId = $(this).data('target');
+        // Function to handle AJAX request
+        function loadModalContent(url, modalId) {
             var modalBody = $(modalId).find('.modal-body');
             $.ajax({
                 url: url,
                 type: 'GET',
                 dataType: 'html',
                 success: function (data) {
-                    console.log(data);
                     modalBody.html(data);
                 },
                 error: function () {
                     modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
                 }
             });
-        });
+        }
 
-    </script>
-
-    <!-- Distribution Create, Update, and Delete JavaScript -->
-    <script>
-        $(function () {
-            $('#createDistribModal').on('show.bs.modal', function (e) {
+        // Function to bind events to modals for showing
+        function bindCreateModalShowEvent(modalSelector) {
+            $(modalSelector).on('show.bs.modal', function (e) {
                 var url = $(this).data('url');
-                var modalBody = $(this).find('.modal-body');
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (data) {
-                        modalBody.html(data);
-                    },
-                    error: function () {
-                        modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                    }
-                });
+                loadModalContent(url, modalSelector);
             });
-        });
-        $(document).on('click', '#amdistribs-table .update-distrib-button, #amdistribs-table .delete-distrib-button', function () {
-            var url = $(this).data('url');
-            var modalId = $(this).data('target');
-            var modalBody = $(modalId).find('.modal-body');
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'html',
-                success: function (data) {
-                    console.log(data);
-                    modalBody.html(data);
-                },
-                error: function () {
-                    modalBody.html('<div class="alert alert-danger">Failed to load content.</div>');
-                }
+        }
+
+        // Function to bind events to buttons for updating and deleting
+        function bindUpdateDeleteEvents(buttonSelector, modalDataAttr) {
+            $(document).on('click', buttonSelector, function () {
+                var url = $(this).data('url');
+                var modalId = $(this).data('target');
+                loadModalContent(url, modalId);
             });
-        });
+        }
+
+        // Initialize modal show events
+        bindCreateModalShowEvent('#createContentModal');
+        bindCreateModalShowEvent('#createDistribModal');
+
+        // Initialize update/delete button events
+        bindUpdateDeleteEvents('#amcontents-table .update-content-button, #amcontents-table .delete-content-button', '#createContentModal');
+        bindUpdateDeleteEvents('#amdistribs-table .update-distrib-button, #amdistribs-table .delete-distrib-button', '#createDistribModal');
     </script>
+
 }

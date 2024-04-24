@@ -1,5 +1,4 @@
 ﻿@model PostCore.Models.Amdistrib
-
 @* //asp-items="ViewBag.UniqueAssetIdcont" (for dropdowns - goes in input) *@
 <form id="updateDistribForm" asp-controller="AmDistrib" asp-action="_DistribUpdate" asp-route-id='@Model.Uniqueassetiddistr' asp-route-d_id='@Model.Uniquedistributionid' onsubmit="return jQueryAjaxPostUpdateDistrib(this);" data-ajax="true" method="post">
     @Html.AntiForgeryToken()
