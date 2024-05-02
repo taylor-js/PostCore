@@ -21,7 +21,6 @@
             <th>@Html.DisplayName("Date")</th>
             <th>@Html.DisplayName("PM")</th>
             <th>@Html.DisplayName("Amount")</th>
-            <th>@Html.DisplayName("Descr")</th>
         </tr>
     </thead>
     <tbody>
@@ -53,7 +52,6 @@
             $('#createAssetModal').on('show.bs.modal', function (e) {
                 var url = $(this).data('url');
                 var modalBody = $(this).find('.modal-body');
-                // Load content asynchronously
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -112,8 +110,8 @@
                     { "data": "Assetdescription" },
                 ],
                 columnDefs: [
-                    { targets: [0], searchale: false },
-                    { targets: [10], searchale: true, visible: false },
+                    { targets: 0, searchable: false, orderable: false },
+                    { targets: 10, searchable: true, visible: false },
                 ],
                 layout: {
                     topStart: {
@@ -122,13 +120,12 @@
                                 text: 'Create',
                                 className: 'btn btn-outline-secondary',
                                 action: function (e, dt, node, config) {
-                                    $('#createAssetModal').modal('show'); // Use jQuery to show your modal
+                                    $('#createAssetModal').modal('show');
                                 },
                                 init: function (api, node, config) {
                                     $(node).removeClass('dt-button')
                                 }
                             }
-                            // You can add more buttons here
                         ]
                     },
                     top2Start: 'pageLength',

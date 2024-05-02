@@ -351,13 +351,10 @@
                 loadModalContent(url, modalId);
             });
         }
-
-        // Initialize modal show events
         bindCreateModalShowEvent('#createContentModal');
-        bindCreateModalShowEvent('#createDistribModal');
-
-        // Initialize update/delete button events
         bindUpdateDeleteEvents('#amcontents-table .update-content-button, #amcontents-table .delete-content-button', '#createContentModal');
+
+        bindCreateModalShowEvent('#createDistribModal');
         bindUpdateDeleteEvents('#amdistribs-table .update-distrib-button, #amdistribs-table .delete-distrib-button', '#createDistribModal');
     </script>
 
