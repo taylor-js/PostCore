@@ -34,9 +34,7 @@ namespace InfoMorph.Controllers
             if (id == null)
                 return NotFound();
 
-            var assetManagementDistributions = await _context.Amdistribs
-                                                        .Where(c => c.Uniqueassetiddistr == id)
-                                                        .ToListAsync();
+            var assetManagementDistributions = await _context.Amdistribs.Where(c => c.Uniqueassetiddistr == id).ToListAsync();
 
             var options = new JsonSerializerOptions
             {

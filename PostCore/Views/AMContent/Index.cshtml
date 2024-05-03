@@ -10,7 +10,7 @@
 <table id="amcontent-index-table" class="display table" style="width:100%">
     <thead>
         <tr>
-            <th>Url</th>
+            <th class="col-sm-1">Url</th>
             <th>@Html.DisplayName("Number")</th>
             <th>@Html.DisplayName("Description")</th>
             <th>@Html.DisplayName("Version")</th>
@@ -39,7 +39,7 @@
                         "data": "Uniqueassetidcont",
                         "render": function (data, type, row) {
                             var detailsUrl = "/AssetMgmt/AssetDetails/" + data;
-                            return `<a href="${detailsUrl}" class="btn btn-outline-secondary">Details</a>`;
+                            return `<a href="${detailsUrl}" class="btn btn-info" style="min-width:80px;">Details</a>`;
                         }
                     },
                     { "data": "Assetcontentnumber" },
@@ -50,6 +50,9 @@
                             return moment(data).format('MM/DD/YYYY');
                         }
                     },
+                ],
+                columnDefs: [
+                    { targets: 0, searchable: false, orderable: false },
                 ],
                 initComplete: () => { $(".table").show(); },
                 responsive: true,

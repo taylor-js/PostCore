@@ -9,33 +9,33 @@
         <input type="hidden" asp-for="Uniqueassetiddistr" />
 
         <div class="form-group">
-            <label asp-for="Assetdistributionowner" class="control-label font-weight-bold"></label>
-            <input asp-for="Assetdistributionowner" class="form-control" placeholder="Distrib Number" />
+            <label asp-for="Assetdistributionowner" class="control-label font-weight-bold">Distribution Owner</label>
+            <input asp-for="Assetdistributionowner" class="form-control" placeholder="Distribution Owner" />
             <span asp-validation-for="Assetdistributionowner" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Assetdistributionlocation" class="control-label font-weight-bold"></label>
-            <input asp-for="Assetdistributionlocation" class="form-control" placeholder="Distrib Description" />
+            <label asp-for="Assetdistributionlocation" class="control-label font-weight-bold">Distribution Location</label>
+            <input asp-for="Assetdistributionlocation" class="form-control" placeholder="Distribution Location" />
             <span asp-validation-for="Assetdistributionlocation" class="text-danger"></span>
         </div>
 
 
         <div class="form-group">
-            <label asp-for="Assetdistributionquantity" class="control-label font-weight-bold"></label>
-            <input asp-for="Assetdistributionquantity" class="form-control" placeholder="Distrib Version" />
+            <label asp-for="Assetdistributionquantity" class="control-label font-weight-bold">Distribution Quantity</label>
+            <input asp-for="Assetdistributionquantity" class="form-control" placeholder="Distribution Quantity" />
             <span asp-validation-for="Assetdistributionquantity" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Assetdistributiondateassigned" class="control-label font-weight-bold"></label>
-            <input type="text" asp-for="Assetdistributiondateassigned" value="@Model.Assetdistributiondateassigned.ToString("yyyy-MM-dd")" class="form-control datepicker" type="date" placeholder="Distrib Date Assigned" />
+            <label asp-for="Assetdistributiondateassigned" class="control-label font-weight-bold">Distribution Date Assigned</label>
+            <input type="text" asp-for="Assetdistributiondateassigned" value="@Model.Assetdistributiondateassigned.ToString("yyyy-MM-dd")" class="form-control datepicker" type="date" placeholder="Distribution Date Assigned" />
             <span asp-validation-for="Assetdistributiondateassigned" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="margin-right:5px;min-width:80px;">Update</button>
+            <button type="button" class="btn btn-secondary" style="margin-left:5px;min-width:80px;" data-dismiss="modal" aria-label="Close">Cancel</button>
         </div>
     </div>
 </form>

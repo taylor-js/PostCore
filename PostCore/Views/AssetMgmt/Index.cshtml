@@ -5,13 +5,13 @@
     ViewBag.Title = "Index";
 }
 <br />
-<h2 class="text-center">PostCore - Asset Management</h2>
+<h2 class="text-center">PostCore - ASP.NET Core MVC CRUD Application Demo</h2>
 <br />
 
 <table id="assets-table" class="display table" style="width:100%">
     <thead>
         <tr>
-            <th>Url</th>
+            <th class="col-sm-1">Url</th>
             <th>@Html.DisplayName("ID")</th>
             <th>@Html.DisplayName("Type")</th>
             <th>@Html.DisplayName("Name")</th>
@@ -82,7 +82,7 @@
                     {
                         "data": "Uniqueassetid", "render": function (data, type, row, meta) {
                             var detailsUrl = `/AssetMgmt/AssetDetails/${data}`;
-                            return `<a href="${detailsUrl}" class="btn btn-outline-secondary">Details</a>`;
+                            return `<a href="${detailsUrl}" class="btn btn-info" style="min-width:80px;">Details</a>`;
                         }
                     },
                     { "data": "Assetid" },
@@ -118,12 +118,12 @@
                         buttons: [
                             {
                                 text: 'Create',
-                                className: 'btn btn-outline-secondary',
+                                className: 'btn btn-success',
                                 action: function (e, dt, node, config) {
                                     $('#createAssetModal').modal('show');
                                 },
                                 init: function (api, node, config) {
-                                    $(node).removeClass('dt-button')
+                                    $(node).removeClass('dt-button').css('min-width', '80px');
                                 }
                             }
                         ]

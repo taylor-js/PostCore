@@ -34,9 +34,7 @@ namespace InfoMorph.Controllers
             if (id == null)
                 return NotFound();
 
-            var assetManagementContents = await _context.Amcontents
-                                                        .Where(c => c.Uniqueassetidcont == id)
-                                                        .ToListAsync();
+            var assetManagementContents = await _context.Amcontents.Where(c => c.Uniqueassetidcont == id).ToListAsync();
 
             var options = new JsonSerializerOptions
             {
