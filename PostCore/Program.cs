@@ -9,9 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-
-
-
 builder.Services.AddRazorPages();
 
 var connectionString = builder.Configuration.GetConnectionString("HerokuPostgres");
@@ -28,6 +25,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -44,13 +42,13 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "aMContent",
-    pattern: "AMContent/{action}/{id?}/{c_id?}", // Corrected route pattern for AMContent controller
-    defaults: new { controller = "AMContent", action = "Index" }); // Assuming Index action as default
+    pattern: "AMContent/{action}/{id?}/{c_id?}",
+    defaults: new { controller = "AMContent", action = "Index" });
 
 app.MapControllerRoute(
     name: "aMDistrib",
-    pattern: "AMDistrib/{action}/{id?}/{d_id?}", // Corrected route pattern for AMDistrib controller
-    defaults: new { controller = "AMDistrib", action = "Index" }); // Assuming Index action as default
+    pattern: "AMDistrib/{action}/{id?}/{d_id?}",
+    defaults: new { controller = "AMDistrib", action = "Index" });
 
 // Default route for HomeController
 app.MapControllerRoute(

@@ -1,7 +1,4 @@
 ﻿@model PostCore.Models.CompositionCollection;
-@using Microsoft.AspNetCore.Mvc.ViewFeatures;
-@using Microsoft.AspNetCore.Mvc.Rendering;
-@using System.Threading.Tasks;
 @{
     ViewBag.Title = "Asset Details";
 }
@@ -185,39 +182,6 @@
     <script>
         $(document).ready(function () {
             $('#amcontents-table').DataTable({
-                "ajax": {
-                    "url": "/AMContent/GetAMContentData?id=" + '@Model.AM.Uniqueassetid',
-                    "type": "GET",
-                    "datatype": "json",
-                    "dataSrc": function (json) {
-                        console.log(json);
-                        return json.data.$values;
-                    }
-                },
-                "columns": [
-                    { "data": "Assetcontentnumber" },
-                    { "data": "Assetcontentdescription" },
-                    { "data": "Assetcontentversion" },
-                    {
-                        "data": "Assetcontentdateassigned", "render": function (data, type, row) {
-                            return moment(data).format('MM/DD/YYYY');
-                        }
-                    },
-                    {
-                        "data": "Uniqueassetidcont",
-                        "render": function (data, type, row) {
-                            var updateContentsUrl = `/AMContent/_ContentUpdate/${data}?c_id=${row.Uniquecontentid}`;
-                            return `<button id='updateContentButton_${row.Uniquecontentid}' class='btn btn-primary update-content-button' style='min-width: 80px;' data-toggle='modal' data-target='#updateContentModal_${row.Uniquecontentid}' data-url='${updateContentsUrl}'>Update</button>`;
-                        }
-                    },
-                    {
-                        "data": "Uniqueassetidcont",
-                        "render": function (data, type, row) {
-                            var deleteContentsUrl = `/AMContent/_ContentDelete/${data}?c_id=${row.Uniquecontentid}`;
-                            return `<button id='deleteContentButton_${row.Uniquecontentid}' class='btn btn-danger delete-content-button' style='min-width: 80px;' data-toggle='modal' data-target='#deleteContentModal_${row.Uniquecontentid}' data-url='${deleteContentsUrl}'>Delete</button>`;
-                        }
-                    },
-                ],
                 layout: {
                     topStart: function () {
                         let banner = document.createElement('div');
@@ -252,44 +216,10 @@
     <script>
         $(document).ready(function () {
             $('#amdistribs-table').DataTable({
-                "ajax": {
-                    "url": "/AMDistrib/GetAMDistribData?id=" + '@Model.AM.Uniqueassetid',
-                    "type": "GET",
-                    "datatype": "json",
-                    "dataSrc": function (json) {
-                        console.log(json);
-                        return json.data.$values;
-                    },
-                },
-                "columns": [
-                    { "data": "Assetdistributionowner" },
-                    { "data": "Assetdistributionlocation" },
-                    { "data": "Assetdistributionquantity" },
-                    {
-                        "data": "Assetdistributiondateassigned", "render": function (data, type, row) {
-                            return moment(data).format('MM/DD/YYYY');
-                        }
-                    },
-                    {
-                        "data": "Uniqueassetiddistr",
-                        "render": function (data, type, row) {
-                            var updateDistribsUrl = `/AMDistrib/_DistribUpdate/${data}?d_id=${row.Uniquedistributionid}`;
-                            return `<button id='updateDistribButton_${row.Uniquedistributionid}' class='btn btn-primary update-distrib-button' style='min-width: 80px;' data-toggle='modal' data-target='#updateDistribModal_${row.Uniquedistributionid}' data-url='${updateDistribsUrl}'>Update</button>`;
-                        }
-                    },
-                    {
-                        "data": "Uniqueassetiddistr",
-                        "render": function (data, type, row) {
-                            var deleteDistribsUrl = `/AMDistrib/_DistribDelete/${data}?d_id=${row.Uniquedistributionid}`;
-                            return `<button id='deleteistribButton_${row.Uniquedistributionid}' class='btn btn-danger delete-distrib-button' style='min-width: 80px;' data-toggle='modal' data-target='#deleteDistribModal_${row.Uniquedistributionid}' data-url='${deleteDistribsUrl}'>Delete</button>`;
-                        }
-                    },
-                ],
                 layout: {
                     topStart: function () {
                         let banner = document.createElement('div');
                         banner.innerHTML = '<h3>Distribution</h3>';
-
                         return banner;
                     },
                     topEnd: {

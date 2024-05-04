@@ -1,4 +1,6 @@
-﻿<table id="amdistribs-table" class="display table" style="width:100%">
+﻿@model PostCore.Models.CompositionCollection;
+
+<table id="amdistribs-table" class="display table" style="width:100%">
     <thead>
         <tr>
             <th>@Html.DisplayName("Owner")</th>
@@ -10,6 +12,33 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model.IE_AM_D)
+        {
+            <tr>
+                <td>@item.Assetdistributionowner</td>
+                <td>@item.Assetdistributionlocation</td>
+                <td>@item.Assetdistributionquantity</td>
+                <td>@item.Assetdistributiondateassigned.ToString("MM/dd/yyyy")</td>
+                <td>
+                    <!-- Update button -->
+                    <button class="btn btn-primary update-distrib-button" style="min-width: 80px;"
+                            id="updateDistribButton_@item.Uniquedistributionid"
+                            data-toggle="modal" data-target="#updateDistribModal_@item.Uniquedistributionid"
+                            data-url="/AMDistrib/_DistribUpdate/@item.Uniqueassetiddistr?d_id=@item.Uniquedistributionid">
+                        Update
+                    </button>
+                </td>
+                <td>
+                    <!-- Delete button -->
+                    <button class="btn btn-danger delete-distrib-button" style="min-width: 80px;"
+                            id="deleteistribButton_@item.Uniquedistributionid"
+                            data-toggle="modal" data-target="#deleteDistribModal_@item.Uniquedistributionid"
+                            data-url="/AMDistrib/_DistribDelete/@item.Uniqueassetiddistr?d_id=@item.Uniquedistributionid">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

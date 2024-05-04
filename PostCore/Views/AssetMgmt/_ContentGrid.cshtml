@@ -1,4 +1,6 @@
-﻿<table id="amcontents-table" class="display table" style="width:100%">
+﻿@model PostCore.Models.CompositionCollection;
+
+<table id="amcontents-table" class="display table" style="width:100%">
     <thead>
         <tr>
             <th>@Html.DisplayName("Number")</th>
@@ -10,6 +12,33 @@
         </tr>
     </thead>
     <tbody>
+        @foreach (var item in Model.IE_AM_C)
+        {
+            <tr>
+                <td>@item.Assetcontentnumber</td>
+                <td>@item.Assetcontentdescription</td>
+                <td>@item.Assetcontentversion</td>
+                <td>@item.Assetcontentdateassigned.ToString("MM/dd/yyyy")</td>
+                <td>
+                    <!-- Update button -->
+                    <button class="btn btn-primary update-content-button" style="min-width: 80px;"
+                            id="updateContentButton_@item.Uniquecontentid"
+                            data-toggle="modal" data-target="#updateContentModal_@item.Uniquecontentid"
+                            data-url="/AMContent/_ContentUpdate/@item.Uniqueassetidcont?c_id=@item.Uniquecontentid">
+                        Update
+                    </button>
+                </td>
+                <td>
+                    <!-- Delete button -->
+                    <button class="btn btn-danger delete-content-button" style="min-width: 80px;"
+                            id="deleteContentButton_@item.Uniquecontentid"
+                            data-toggle="modal" data-target="#deleteContentModal_@item.Uniquecontentid"
+                            data-url="/AMContent/_ContentDelete/@item.Uniqueassetidcont?c_id=@item.Uniquecontentid">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

@@ -29,20 +29,21 @@ namespace InfoMorph.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAMDistribData(Guid? id)
+        public async Task<IActionResult> _DistribGrid(Guid? id)
         {
             if (id == null)
                 return NotFound();
 
-            var assetManagementDistributions = await _context.Amdistribs.Where(c => c.Uniqueassetiddistr == id).ToListAsync();
+            var assetManagementDistribs = await _context.Amdistribs
+                .Where(c => c.Uniqueassetiddistr == id)
+                .ToListAsync();
 
-            var options = new JsonSerializerOptions
+            var viewModel = new CompositionCollection
             {
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true
+                IE_AM_D = assetManagementDistribs,
             };
 
-            return Json(new { success = true, data = assetManagementDistributions }, options);
+            return PartialView("_DistribGrid", viewModel);
         }
 
         [HttpGet]

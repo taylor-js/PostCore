@@ -29,21 +29,23 @@ namespace InfoMorph.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAMContentData(Guid? id)
+        public async Task<IActionResult> _ContentGrid(Guid? id)
         {
             if (id == null)
                 return NotFound();
 
-            var assetManagementContents = await _context.Amcontents.Where(c => c.Uniqueassetidcont == id).ToListAsync();
+            var assetManagementContents = await _context.Amcontents
+                .Where(c => c.Uniqueassetidcont == id)
+                .ToListAsync();
 
-            var options = new JsonSerializerOptions
+            var viewModel = new CompositionCollection
             {
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true
+                IE_AM_C = assetManagementContents,
             };
 
-            return Json(new { success = true, data = assetManagementContents }, options);
+            return PartialView("_ContentGrid", viewModel);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllAMContentData()
         {
